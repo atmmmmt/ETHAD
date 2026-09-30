@@ -119,27 +119,38 @@ export function Dashboard() {
 /* ==========================================================================
    Chart of accounts
    ========================================================================== */
+const LEVEL_OF = (code) => ({ 2: 1, 3: 2, 6: 3, 9: 4 }[code.length] || 4);
+const LEVEL_NAME = { 0: 'مجموعة', 1: 'رئيسي', 2: 'عام', 3: 'مساعد', 4: 'تحليلي' };
+const KIND = { bs: 'ميزانية', pl: 'أرباح وخسائر', tr: 'متاجرة' };
+
+function openTo(level) {
+  const s = new Set(['G1', 'G2', 'G3', 'G4']);
+  if (level > 1) Object.keys(CHILDREN).forEach((c) => { if (c !== 'root' && LEVEL_OF(c) < level) s.add(c); });
+  return s;
+}
+
 export function Accounts({ focus }) {
   const { state } = useStore();
   const R = useMemo(() => rollup(ledger(state.entries)), [state.entries]);
   const [q, setQ] = useState('');
-  const [open, setOpen] = useState(() => new Set(['G1', 'G2', 'G3', 'G4', ...(focus ? [focus.slice(0, 2), focus] : [])]));
+  const [level, setLevel] = useState(4);
+  const [open, setOpen] = useState(() => openTo(4));
   const [hideZero, setHideZero] = useState(false);
   const [sel, setSel] = useState(null);
 
   const toggle = (k) => setOpen((o) => { const n = new Set(o); n.has(k) ? n.delete(k) : n.add(k); return n; });
+  const pickLevel = (l) => { setLevel(l); setOpen(openTo(l)); };
 
   const rows = [];
   const walk = (code, depth) => {
-    const v = R[code];
-    if (hideZero && !v) return;
+    if (hideZero && !R[code]) return;
     rows.push({ code, depth });
     if (open.has(code)) (CHILDREN[code] || []).forEach((c) => walk(c, depth + 1));
   };
   let searchRows = null;
   if (q.trim()) {
     const t = q.trim();
-    searchRows = Object.values(ACC).filter((a) => a.code.startsWith(t) || a.name.includes(t)).slice(0, 200);
+    searchRows = Object.values(ACC).filter((a) => a.code.startsWith(t) || a.name.includes(t)).slice(0, 300);
   } else {
     ROOT_GROUPS.forEach((g) => {
       rows.push({ code: 'G' + g.key, depth: 0, group: g });
@@ -147,47 +158,67 @@ export function Accounts({ focus }) {
     });
   }
 
-  const exportAll = () => downloadCSV('دليل-الحسابات', [['رقم الحساب', 'اسم الحساب', 'العائدية', 'مدين', 'دائن', 'الرصيد'],
-    ...Object.values(ACC).map((a) => [a.code, a.name, { bs: 'ميزانية', pl: 'أرباح وخسائر', tr: 'متاجرة' }[a.kind], R[a.code]?.dr || 0, R[a.code]?.cr || 0, bal(R[a.code], a.code)])]);
+  const counts = [1, 2, 3, 4].map((l) => Object.keys(ACC).filter((c) => LEVEL_OF(c) === l).length);
+  const exportAll = () => downloadCSV('دليل-الحسابات', [['رقم الحساب', 'اسم الحساب', 'المستوى', 'الحساب الأب', 'العائدية', 'مدين', 'دائن', 'الرصيد'],
+    ...Object.values(ACC).map((a) => [a.code, a.name, LEVEL_OF(a.code), realParent(a.code) || '', KIND[a.kind], R[a.code]?.dr || 0, R[a.code]?.cr || 0, bal(R[a.code], a.code)])]);
 
-  const Row = ({ code, depth, group }) => {
-    const a = group ? { code: '', name: group.name } : ACC[code];
+  const Row = ({ code, depth, group, flat }) => {
+    const a = group ? { code: 'G' + group.key, name: group.name } : ACC[code];
+    const lv = group ? 0 : LEVEL_OF(code);
     const v = R[code];
-    const kids = group || CHILDREN[code];
+    const kids = group ? true : CHILDREN[code];
+    const d = flat ? 0 : depth;
     return (
-      <tr className={'tree-row lvl-' + Math.min(depth + 2, 4) + (!kids ? ' clickable' : '')} onClick={() => !kids && setSel(code)}>
+      <tr className={`coa lv${lv}` + (!kids ? ' clickable' : '')} onClick={() => (kids ? toggle(code) : setSel(code))}>
         <td>
-          <span className="tw" style={{ paddingRight: depth * 22 }}>
-            {kids ? <button onClick={(e) => { e.stopPropagation(); toggle(code); }}><Icon n={open.has(code) ? 'down' : 'left'} s={14} /></button> : <span style={{ width: 22 }} />}
-            <span className="code">{a.code}</span>
-          </span>
+          <div className="coa-name" style={{ paddingRight: d * 26 }}>
+            {!flat && Array.from({ length: d }, (_, i) => <i key={i} className="guide" style={{ right: i * 26 + 10 }} />)}
+            {kids ? <span className="caret"><Icon n={open.has(code) ? 'down' : 'left'} s={14} /></span> : <span className="dotleaf" />}
+            {!group && <span className="code">{a.code}</span>}
+            <span className="nm">{a.name}</span>
+            {kids && !group && <span className="kids">{CHILDREN[code].length}</span>}
+          </div>
         </td>
-        <td>{a.name}</td>
-        <td>{group ? '' : <span className="pill">{{ bs: 'ميزانية', pl: 'أرباح وخسائر', tr: 'متاجرة' }[a.kind]}</span>}</td>
-        <td className="n">{v ? <Money v={v.dr} /> : '—'}</td>
-        <td className="n">{v ? <Money v={v.cr} /> : '—'}</td>
-        <td className="n"><b>{v ? <Money v={bal(v, group ? group.key : code)} color /> : '—'}</b></td>
+        <td>{group ? '' : <span className={'lvl-tag t' + lv}>{lv} · {LEVEL_NAME[lv]}</span>}</td>
+        <td>{group ? '' : <span className="muted" style={{ fontSize: 12 }}>{KIND[a.kind]}</span>}</td>
+        <td className="n">{v ? <Money v={v.dr} /> : <span className="muted">—</span>}</td>
+        <td className="n">{v ? <Money v={v.cr} /> : <span className="muted">—</span>}</td>
+        <td className="n"><b>{v ? <Money v={bal(v, group ? group.key : code)} color /> : <span className="muted">—</span>}</b></td>
       </tr>
     );
   };
 
   return (
     <div className="page">
+      <div className="grid g4">
+        {ROOT_GROUPS.map((g) => (
+          <button key={g.key} className="kpi" onClick={() => { setQ(''); setOpen((o) => new Set([...o, 'G' + g.key])); document.getElementById('coa-G' + g.key)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}>
+            <small>{g.name}</small><b><Money v={bal(R['G' + g.key], g.key)} /></b>
+            <span className="muted">{Object.keys(ACC).filter((c) => c[0] === g.key).length.toLocaleString('en-US')} حسابًا</span>
+          </button>
+        ))}
+      </div>
       <div className="row">
-        <div className="search"><Icon n="search" /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث في 2,238 حسابًا بالرقم أو الاسم…" /></div>
-        <label className="row" style={{ gap: 6 }}><input type="checkbox" checked={hideZero} onChange={(e) => setHideZero(e.target.checked)} /> إخفاء الحسابات بلا حركة</label>
+        <div className="search"><Icon n="search" /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`ابحث في ${Object.keys(ACC).length.toLocaleString('en-US')} حسابًا بالرقم أو الاسم…`} /></div>
+        <div className="seg">
+          {[1, 2, 3, 4].map((l) => <button key={l} className={level === l ? 'on' : ''} onClick={() => pickLevel(l)}>{l === 4 ? 'كل المستويات' : `حتى المستوى ${l}`}</button>)}
+        </div>
+        <label className="row" style={{ gap: 6 }}><input type="checkbox" checked={hideZero} onChange={(e) => setHideZero(e.target.checked)} /> الحسابات المتحركة فقط</label>
         <span style={{ flex: 1 }} />
-        <button className="btn" onClick={() => setOpen(new Set(['G1', 'G2', 'G3', 'G4']))}>طيّ الكل</button>
+        <button className="btn" onClick={() => window.print()}><Icon n="print" /> طباعة</button>
         <button className="btn" onClick={exportAll}><Icon n="dl" /> تصدير Excel</button>
       </div>
-      <div className="alert ok"><Icon n="check" />دليل الحسابات منقول كما هو من النظام الحالي: {Object.keys(ACC).length.toLocaleString('en-US')} حسابًا بنفس الأرقام والتسلسل.</div>
-      <div className="tbl-wrap" style={{ maxHeight: 'calc(100vh - 250px)' }}>
-        <table className="tbl">
-          <thead><tr><th style={{ width: 230 }}>رقم الحساب</th><th>اسم الحساب</th><th>العائدية</th><th className="n">مدين</th><th className="n">دائن</th><th className="n">الرصيد</th></tr></thead>
+      <div className="coa-legend">
+        {[1, 2, 3, 4].map((l) => <span key={l}><span className={'lvl-tag t' + l}>{l} · {LEVEL_NAME[l]}</span> {['خانتان', '3 خانات', '6 خانات', '9 خانات'][l - 1]} · {counts[l - 1].toLocaleString('en-US')} حساب</span>)}
+        <span className="muted">الأرصدة المعروضة للحسابات الأب هي مجموع ما تحتها.</span>
+      </div>
+      <div className="tbl-wrap" style={{ maxHeight: 'calc(100vh - 330px)' }}>
+        <table className="tbl coa-tbl">
+          <thead><tr><th>الحساب</th><th style={{ width: 120 }}>المستوى</th><th style={{ width: 110 }}>العائدية</th><th className="n" style={{ width: 130 }}>مدين</th><th className="n" style={{ width: 130 }}>دائن</th><th className="n" style={{ width: 140 }}>الرصيد</th></tr></thead>
           <tbody>
             {searchRows
-              ? searchRows.map((a) => <Row key={a.code} code={a.code} depth={0} />)
-              : rows.map((r) => <Row key={r.code} {...r} />)}
+              ? searchRows.map((a) => <Row key={a.code} code={a.code} depth={0} flat />)
+              : rows.map((r) => <React.Fragment key={r.code}>{r.group && <tr id={'coa-' + r.code} style={{ height: 0 }} />}<Row {...r} /></React.Fragment>)}
           </tbody>
         </table>
       </div>

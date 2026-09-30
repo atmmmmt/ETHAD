@@ -180,3 +180,30 @@ button.kpi:hover { border-color: var(--red); transform: translateY(-2px); }
   body { background: #fff; }
   .card { border: 0; padding: 0; }
 }
+
+/* ---------- Chart of accounts hierarchy ---------- */
+.coa-tbl td { padding-top: 7px; padding-bottom: 7px; }
+.coa-name { position: relative; display: flex; align-items: center; gap: 8px; min-height: 26px; }
+.coa-name .guide { position: absolute; top: -8px; bottom: -8px; width: 1px; background: #E5E1DD; }
+.coa-name .caret { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; color: var(--muted); flex: none; background: var(--bg); }
+.coa-name .dotleaf { width: 22px; flex: none; display: grid; place-items: center; }
+.coa-name .dotleaf::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #CFCACF; }
+.coa-name .code { min-width: 78px; }
+.coa-name .kids { font-size: 11px; color: var(--muted); background: var(--bg); border-radius: 999px; padding: 0 8px; }
+tr.coa { cursor: pointer; }
+tr.lv0 td { background: var(--ink) !important; color: #fff; font-weight: 700; font-size: 15px; }
+tr.lv0 .caret { background: #2C282C; color: #fff; }
+tr.lv0 .muted, tr.lv0 .neg { color: #fff; }
+tr.lv1 td { background: #F3EFEC; font-weight: 700; font-size: 14px; }
+tr.lv1 .code { color: var(--red); font-weight: 700; }
+tr.lv2 td { font-weight: 700; }
+tr.lv2 .code { color: var(--ink); }
+tr.lv3 td { font-weight: 500; }
+tr.lv4 td { color: #3F3A3F; }
+.lvl-tag { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.lvl-tag.t1 { background: var(--red); color: #fff; }
+.lvl-tag.t2 { background: var(--ink); color: #fff; }
+.lvl-tag.t3 { background: #E8E4E1; color: var(--ink); }
+.lvl-tag.t4 { background: #fff; color: var(--muted); border: 1px solid var(--line); }
+.coa-legend { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; font-size: 12px; color: var(--muted); }
+@media print { .coa-legend, .grid.g4 { display: none; } .tbl-wrap { max-height: none !important; overflow: visible; } }
