@@ -764,7 +764,7 @@
      wheel (middle) click = step through the choices on the slide
      ------------------------------------------------------------------ */
   const INTERACTIVE = 'button, a, input, select, textarea, label, .kpi, .st, .phase, [data-drill], .chart-wrap, .index-panel, .controls';
-  const CHOICES = '.seg button, #kpis .kpi, .flow .st, .phase, #suggest button, .buy';
+  const CHOICES = 'button:not([data-goto]):not(#drillClose), .flow .st';
   let choiceIdx = -1, choiceSlide = -1;
 
   document.addEventListener('click', (e) => {
