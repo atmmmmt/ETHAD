@@ -937,3 +937,4 @@ input[type=range].rng::-moz-range-thumb { width: 22px; height: 22px; border-radi
 .rsum small { color: var(--muted-dark); font-size: 15px; } .rsum b { display: block; font-size: 52px; color: #FF4B51; direction: ltr; text-align: right; }
 .rsum span { color: var(--muted-dark); font-size: 15px; }
 .cover h1 { font-size: 110px !important; }
+.hub-layout > *, .slide [style*="grid-template-columns"] > * { min-width: 0; }

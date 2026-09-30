@@ -738,6 +738,26 @@
   phWrap.addEventListener('click', (e) => { const b = e.target.closest('.phase'); if (b) setPhase(+b.dataset.p); });
   setPhase(0);
 
+
+  /* ------------------------------------------------------------------
+     Keep every slide title on a single line: shrink until it fits
+     ------------------------------------------------------------------ */
+  function fitTitles() {
+    $$('.slide .title').forEach((t) => {
+      t.style.fontSize = '';
+      t.style.whiteSpace = 'nowrap';
+      let size = parseFloat(getComputedStyle(t).fontSize);
+      const avail = t.parentElement.clientWidth;
+      while (t.scrollWidth > avail && size > 44) {
+        size -= 1;
+        t.style.fontSize = size + 'px';
+      }
+      // narrow column: two balanced lines read better than a tiny single line
+      if (t.scrollWidth > avail) { t.style.whiteSpace = 'normal'; t.style.fontSize = '50px'; }
+    });
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitTitles);
+
   /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
