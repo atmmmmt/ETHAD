@@ -947,3 +947,4 @@ input[type=range].rng::-moz-range-thumb { width: 22px; height: 22px; border-radi
 .cover .cover-by { margin-top: 56px; display: flex; align-items: center; gap: 16px; padding-right: 18px; border-right: 3px solid var(--red); }
 .cover .cover-by small { font-size: 18px; color: var(--muted-dark); }
 .cover .cover-by b { font-size: 28px; font-weight: 600; color: #fff; }
+.pulse { outline: 3px solid var(--red); outline-offset: 4px; transition: outline-color .4s; }

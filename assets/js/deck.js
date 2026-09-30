@@ -758,6 +758,41 @@
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitTitles);
 
+
+  /* ------------------------------------------------------------------
+     Presenter mouse: left click = next, right click = previous,
+     wheel (middle) click = step through the choices on the slide
+     ------------------------------------------------------------------ */
+  const INTERACTIVE = 'button, a, input, select, textarea, label, .kpi, .st, .phase, [data-drill], .chart-wrap, .index-panel, .controls';
+  const CHOICES = '.seg button, #kpis .kpi, .flow .st, .phase, #suggest button, .buy';
+  let choiceIdx = -1, choiceSlide = -1;
+
+  document.addEventListener('click', (e) => {
+    if (e.button !== 0 || e.target.closest(INTERACTIVE)) return;
+    if (indexPanel.classList.contains('open')) return;
+    next();
+  });
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest('input, textarea')) return;
+    e.preventDefault();
+    if (indexPanel.classList.contains('open')) { closeIndex(); return; }
+    prev();
+  });
+  document.addEventListener('mousedown', (e) => {
+    if (e.button !== 1) return;
+    e.preventDefault(); // stop browser auto-scroll
+    const list = $$(CHOICES, slides[current]).filter((el) => el.offsetParent !== null);
+    if (!list.length) return;
+    if (choiceSlide !== current) { choiceSlide = current; choiceIdx = -1; }
+    const on = list.findIndex((el) => el.classList.contains('on') || el.classList.contains('cur'));
+    choiceIdx = (Math.max(choiceIdx, on) + 1) % list.length;
+    const el = list[choiceIdx];
+    el.click();
+    el.classList.add('pulse');
+    setTimeout(() => el.classList.remove('pulse'), 450);
+  });
+  document.addEventListener('auxclick', (e) => { if (e.button === 1) e.preventDefault(); });
+
   /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
