@@ -193,7 +193,7 @@ svg.ti { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: ro
 }
 .cover .bg::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(11,11,13,.1) 0%, rgba(11,11,13,.45) 32%, rgba(11,11,13,.97) 50%, var(--ink) 100%),
+  background: linear-gradient(to right, rgba(11,11,13,.1) 0%, rgba(11,11,13,.5) 30%, var(--ink) 47%, var(--ink) 100%),
               linear-gradient(to top, rgba(11,11,13,.8), transparent 45%);
 }
 .cover .content {
@@ -938,3 +938,12 @@ input[type=range].rng::-moz-range-thumb { width: 22px; height: 22px; border-radi
 .rsum span { color: var(--muted-dark); font-size: 15px; }
 .cover h1 { font-size: 110px !important; }
 .hub-layout > *, .slide [style*="grid-template-columns"] > * { min-width: 0; }
+.cover h1 { font-size: 118px !important; line-height: 1.1; white-space: nowrap; }
+.cover .cover-sub { font-size: 46px; font-weight: 600; color: #E8E4E8; margin-top: 18px; }
+.cover .cover-sub span { color: var(--red); }
+.cover .cover-rule { width: 120px; height: 4px; background: var(--red); border-radius: 2px; margin: 44px 0 26px; }
+.cover .en-title { margin-top: 0 !important; text-align: right; }
+.cover .eyebrow { margin-bottom: 28px; }
+.cover .cover-by { margin-top: 56px; display: flex; align-items: center; gap: 16px; padding-right: 18px; border-right: 3px solid var(--red); }
+.cover .cover-by small { font-size: 18px; color: var(--muted-dark); }
+.cover .cover-by b { font-size: 28px; font-weight: 600; color: #fff; }
