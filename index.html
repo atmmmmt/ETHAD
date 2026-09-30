@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المنظومة الرقمية — نادي الأهلي · الاتحاد الحلبي</title>
+<meta name="description" content="عرض تقديمي لمشروع التحول الرقمي الشامل لنادي الأهلي · الاتحاد الحلبي — Digital Club Operating System.">
+<meta name="theme-color" content="#0B0B0D">
+<link rel="icon" type="image/png" href="assets/img/crest-ittihad.png">
+<link rel="preload" href="assets/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/deck.css">
+</head>
+<body>
+
+<!-- ============================ ICON SPRITE ============================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+  <symbol id="bank" viewBox="0 0 24 24"><path d="M3 22h18"/><path d="M6 18v-7"/><path d="M10 18v-7"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M12 2 20 7H4z"/></symbol>
+  <symbol id="alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+  <symbol id="pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.4 3.6a1 1 0 0 1 3 3L7.4 18.6a2 2 0 0 1-.9.5l-2.9.8a.5.5 0 0 1-.6-.6l.8-2.9a2 2 0 0 1 .5-.9z"/></symbol>
+  <symbol id="cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="sparkles" viewBox="0 0 24 24"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="shirt" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></symbol>
+  <symbol id="wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/></symbol>
+  <symbol id="wifioff" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M5 12.86a10 10 0 0 1 5.17-2.69"/><path d="M19 12.86a10 10 0 0 0-2-1.52"/><path d="M2 8.82a15 15 0 0 1 4.18-2.64"/><path d="M22 8.82a15 15 0 0 0-11.29-3.76"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
+  <symbol id="db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+  <symbol id="zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+  <symbol id="plug" viewBox="0 0 24 24"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"/><path d="m2 22 3-3"/><path d="M7.5 13.5 10 11"/><path d="M10.5 16.5 13 14"/><path d="m18 3-4 4h6l-4 4"/></symbol>
+  <symbol id="hdd" viewBox="0 0 24 24"><path d="M22 12H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M6 16h.01"/><path d="M10 16h.01"/></symbol>
+  <symbol id="usb" viewBox="0 0 24 24"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="cl" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="cr" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="arrowl" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+  <symbol id="chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+  <symbol id="pie" viewBox="0 0 24 24"><path d="M21 12c.55 0 1-.45.95-1A10 10 0 0 0 13 2.05c-.55-.05-1 .4-1 .95v8a1 1 0 0 0 1 1z"/><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="key" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+  <symbol id="brief" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+  <symbol id="trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+  <symbol id="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m12 7 4.2 3-1.6 5H9.4L7.8 10z"/><path d="M12 7V2.5"/><path d="m16.2 10 4.3-1.4"/><path d="m14.6 15 2.6 3.7"/><path d="M9.4 15 6.8 18.7"/><path d="M7.8 10 3.5 8.6"/></symbol>
+  <symbol id="bball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93c4.08 2.38 8.02 7.16 9.2 16.83"/><path d="M19.07 4.93c-4.08 2.38-8.02 7.16-9.2 16.83"/><path d="M2 12h20"/></symbol>
+  <symbol id="refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .71-1.53l7-6a2 2 0 0 1 2.58 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+  <symbol id="max" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="satellite" viewBox="0 0 24 24"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></symbol>
+  <symbol id="network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></symbol>
+  <symbol id="coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+  <symbol id="trend" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="qr" viewBox="0 0 24 24"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></symbol>
+  <symbol id="login" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></symbol>
+  <symbol id="msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="clip" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+  <symbol id="banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24"><path d="M6 3v18l15-9z"/></symbol>
+  <symbol id="rotate" viewBox="0 0 24 24"><rect width="12" height="20" x="6" y="2" rx="2" transform="rotate(-30 12 12)"/><path d="M3 12a9 9 0 0 0 5 8"/></symbol>
+  <symbol id="list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol>
+</svg>
+
+<div class="progress"><i id="progressBar"></i></div>
+
+<div class="viewport" id="viewport">
+<main class="stage" id="stage">
+
+<!-- ===================================================================
+     01 · COVER
+     =================================================================== -->
+<section class="slide cover" data-title="الغلاف" data-chapter="البداية" data-bare>
+  <div class="bg" data-a="fade"></div>
+  <div class="content">
+    <div class="eyebrow" data-a><span class="stripe"><i></i><i></i><i></i></span> عرض تقديمي لمجلس الإدارة · 2026</div>
+    <h1 data-a>من برنامج محاسبة قديم<br>إلى <span>نظام تشغيل رقمي</span><br>للنادي</h1>
+    <p class="sub" data-a>خطة التحول الرقمي الشاملة لنادي الأهلي · الاتحاد الحلبي — نبدأ من المالية لأنها الأخطر، ثم نتوسع إلى الإدارة والتشغيل والرياضة والقنوات الرقمية، فوق بنية تحتية موثوقة.</p>
+    <div class="en-title" data-a>AL-AHLI SC · ITTIHAD OF ALEPPO — DIGITAL CLUB SYSTEM</div>
+    <div class="meta" data-a>
+      <div><b>المالية أولًا</b><small>نقطة البداية</small></div>
+      <div><b>8 مراحل</b><small>تنفيذ تدريجي آمن</small></div>
+      <div><b>منظومة واحدة</b><small>بدل الأنظمة المتفرقة</small></div>
+    </div>
+  </div>
+  <div class="hint" data-a="fade"><kbd>←</kbd><kbd>→</kbd> للتنقل · <kbd>F</kbd> ملء الشاشة · <kbd>G</kbd> الفهرس</div>
+</section>
+
+<!-- ===================================================================
+     02 · AGENDA
+     =================================================================== -->
+<section class="slide" data-title="محاور العرض" data-chapter="البداية">
+  <div class="head-block">
+    <div class="kicker" data-a>محاور العرض</div>
+    <h2 class="title" data-a>ستة محاور — من <em>الواقع الحالي</em> إلى <em>الخطوة التالية</em></h2>
+  </div>
+  <div class="agenda">
+    <button data-a data-goto="ch1"><span class="n">01</span><h4>الواقع الحالي</h4><p>ما رصدناه ميدانيًا: الأجهزة، الشبكة، الكهرباء، النسخ الاحتياطي، والبرنامج.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+    <button data-a data-goto="ch2"><span class="n">02</span><h4>الرؤية</h4><p>نظام تشغيل رقمي يعطي الإدارة الصورة كاملة في أقل من 20 ثانية.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+    <button data-a data-goto="ch3"><span class="n">03</span><h4>المنظومة</h4><p>المالية، الموازنة، المستثمرون، العقود، الرواتب، الرياضة، المشتريات، والمتجر.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+    <button data-a data-goto="ch4"><span class="n">04</span><h4>البنية التحتية</h4><p>الشبكة، الإنترنت، الكهرباء، النسخ الاحتياطي، الأجهزة، والانتقال من الرشيد.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+    <button data-a data-goto="ch5"><span class="n">05</span><h4>التقنية والتصميم</h4><p>البنية التقنية، نظام التصميم، تجربة المستخدم، والأمان.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+    <button data-a data-goto="ch6"><span class="n">06</span><h4>خارطة التنفيذ</h4><p>ثماني مراحل، ما الذي يتغير، وما الذي نبدأ به الآن.</p><span class="go">انتقل <svg class="i"><use href="#arrowl"/></svg></span></button>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 01 — CURRENT STATE
+     =================================================================== -->
+<section class="slide divider photo" id="ch1" data-title="الواقع الحالي" data-chapter="01 · الواقع الحالي" data-bare>
+  <div class="num-xl">01</div>
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور الأول</div>
+    <h2 data-a>الواقع الحالي</h2>
+    <p data-a>ما رصدناه ميدانيًا داخل النادي: برنامج محاسبة وصل إلى حدوده، يعمل على أجهزة وشبكة وكهرباء لا تحتمل عطلًا واحدًا.</p>
+    <div class="chips" data-a><span>الأجهزة</span><span>Windows 7</span><span>الإنترنت</span><span>الكهرباء</span><span>النسخ الاحتياطي</span><span>برنامج الرشيد</span></div>
+  </div>
+</section>
+
+<section class="slide" data-title="رصد ميداني" data-chapter="01 · الواقع الحالي" data-note="المصدر: زيارة ميدانية ورصد مباشر لبيئة العمل الحالية">
+  <div class="head-block">
+    <div class="kicker" data-a>رصد ميداني</div>
+    <h2 class="title" data-a>البيانات المالية للنادي تعيش على <em>بنية لا تحتمل عطلًا واحدًا</em></h2>
+  </div>
+  <div class="grid g4">
+    <div class="card finding" data-a><div class="top"><span class="cat">الأجهزة</span><span class="sev s3"><i></i><i></i><i></i></span></div><div class="big en">Core 2 Duo</div><p>عدد محدود من أجهزة Desktop بمعالجات من جيل قديم جدًا، ومشتركة بين أكثر من موظف.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">نظام التشغيل</span><span class="sev s3"><i></i><i></i><i></i></span></div><div class="big en">Windows 7</div><p>نظام انتهى دعمه الأمني منذ 2020 — بلا تحديثات ولا حماية حديثة.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">النسخ الاحتياطي</span><span class="sev s3"><i></i><i></i><i></i></span></div><div class="big en">Flash USB</div><p>لا يوجد Backup حقيقي. النسخ يدوي على ذاكرة متنقلة، وتلف هارد واحد قد يُفقد بيانات مالية مهمة.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">الكهرباء</span><span class="sev s3"><i></i><i></i><i></i></span></div><div class="big">انقطاع متكرر</div><p>لا حماية UPS للأجهزة أو البيانات — كل انقطاع خطر على العمل المفتوح.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">الإنترنت</span><span class="sev s2"><i></i><i></i><i></i></span></div><div class="big en">DSL</div><p>اتصال ضعيف يفصل كثيرًا، ولا يوجد خط احتياطي.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">الشبكة والسيرفر</span><span class="sev s2"><i></i><i></i><i></i></span></div><div class="big">غير موجودة</div><p>لا شبكة داخلية منظمة ولا بيئة سيرفر احترافية.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">البرنامج</span><span class="sev s2"><i></i><i></i><i></i></span></div><div class="big">الرشيد</div><p>برنامج محاسبة ومستودعات قديم: لا رؤية لحظية، لا موازنة، لا تنبيهات.</p></div>
+    <div class="card finding" data-a><div class="top"><span class="cat">البيانات</span><span class="sev s2"><i></i><i></i><i></i></span></div><div class="big">جزر منفصلة</div><p>المالية وكرة القدم والسلة والإدارة — بيانات غير مترابطة ولا منظومة مركزية.</p></div>
+  </div>
+  <div class="row" style="margin-top:22px; gap:28px; font-size:16px; color:var(--muted); align-items:center" data-a="fade">
+    <span style="display:flex;gap:10px;align-items:center"><span class="sev s3"><i></i><i></i><i></i></span> خطر حرج</span>
+    <span style="display:flex;gap:10px;align-items:center"><span class="sev s2"><i></i><i></i><i></i></span> خطر مرتفع</span>
+  </div>
+</section>
+
+<section class="slide dark" data-title="الأثر على الإدارة" data-chapter="01 · الواقع الحالي">
+  <div class="head-block">
+    <div class="kicker" data-a>الأثر على الإدارة</div>
+    <h2 class="title" data-a>المشكلة ليست تقنية فقط — <em>الإدارة لا ترى الصورة المالية</em></h2>
+  </div>
+  <div class="chain">
+    <div class="link" data-a><svg class="i" style="color:var(--muted-dark)"><use href="#monitor"/></svg><b>جهاز قديم</b><small class="en">Core 2 Duo · Windows 7</small></div>
+    <div class="op" data-a="fade">+</div>
+    <div class="link" data-a><svg class="i" style="color:var(--muted-dark)"><use href="#hdd"/></svg><b>هارد واحد</b><small>بلا RAID ولا نسخ آلي</small></div>
+    <div class="op" data-a="fade">+</div>
+    <div class="link" data-a><svg class="i" style="color:var(--muted-dark)"><use href="#usb"/></svg><b>Flash USB</b><small>نسخ يدوي غير منتظم</small></div>
+    <div class="op" data-a="fade">=</div>
+    <div class="link result" data-a="scale"><svg class="i"><use href="#alert"/></svg><b>خسارة البيانات المالية</b><small>سنوات من القيود والعقود والأرصدة</small></div>
+  </div>
+  <div class="impacts">
+    <div data-a>لا توجد موازنة حقيقية يمكن مقارنتها بالمصروف الفعلي.</div>
+    <div data-a>صعوبة متابعة المستثمرين والمستحقات المتأخرة.</div>
+    <div data-a>ضرائب والتزامات تترتب أحيانًا بسبب عدم ضبط المستحقات.</div>
+    <div data-a>لا رؤية موحدة للعقود والدفعات القادمة.</div>
+    <div data-a>لا نظام واضح للرواتب والتأخير والعقوبات والخصميات والسلف.</div>
+    <div data-a>لا موقع رسمي ولا متجر احترافي مرتبط بالإدارة.</div>
+  </div>
+  <div class="closing-line" data-a>المطلوب <span>حلّ جذري</span> لهذه المشاكل — لا مجرد تغيير واجهة برنامج قديم.</div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 02 — VISION
+     =================================================================== -->
+<section class="slide divider" id="ch2" data-title="الرؤية" data-chapter="02 · الرؤية" data-bare>
+  <div class="num-xl">02</div>
+  <img class="watermark" src="assets/img/crest-ittihad.png" alt="">
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور الثاني</div>
+    <h2 data-a>الرؤية</h2>
+    <p data-a>من نظام يسجّل ما حدث — إلى نظام يُخبر الإدارة بما سيحدث، قبل أن يحدث.</p>
+    <div class="chips" data-a><span>20 ثانية</span><span>Digital Club OS</span><span>واجهتان في نظام واحد</span></div>
+  </div>
+</section>
+
+<section class="slide dark" data-title="هدف العشرين ثانية" data-chapter="02 · الرؤية" data-enter="twenty">
+  <div class="head-block">
+    <div class="kicker" data-a>الهدف القابل للقياس</div>
+    <h2 class="title" data-a>رئيس مجلس الإدارة يرى وضع النادي كاملًا <em>في أقل من 20 ثانية</em></h2>
+  </div>
+  <div class="twenty">
+    <div data-a="scale" style="display:flex;flex-direction:column;align-items:center">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 200 200"><circle class="track" cx="100" cy="100" r="88" fill="none" stroke-width="8"/><circle class="prog" id="ringProg" cx="100" cy="100" r="88" fill="none" stroke-width="8" stroke-dasharray="552.9" stroke-dashoffset="552.9"/></svg>
+        <div class="ring-center"><b class="num" id="ringNum">20</b><span>ثانية</span></div>
+      </div>
+      <button class="btn ring-btn" id="ringBtn"><svg class="i"><use href="#play"/></svg> ابدأ التجربة</button>
+    </div>
+    <div>
+      <ul class="questions" id="questions">
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>كم السيولة الآن؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>كم في البنك والصندوق؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>التزامات 7 · 30 · 90 يومًا</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>من هم المستثمرون المتأخرون؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>كم دفعت كرة القدم هذا الشهر؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>كم دفعت كرة السلة؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>هل تجاوز قسمٌ موازنته؟</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>عقود تستحق دفعات قريبًا</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>الرواتب المستحقة</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>المشتريات الجديدة</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>المستودعات والأصول ومن يستلمها</li>
+        <li><span class="chk"><svg class="i"><use href="#check"/></svg></span>التدفق النقدي المتوقع</li>
+      </ul>
+      <p class="small" style="margin-top:26px; font-size:20px" data-a="fade">وكل رقم قابل للضغط للوصول إلى الحركات والمستندات المرتبطة به.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="نظام تشغيل رقمي" data-chapter="02 · الرؤية">
+  <div class="hub-layout">
+    <div class="hub-copy">
+      <div class="kicker" data-a>المفهوم</div>
+      <h2 class="title" style="font-size:54px" data-a>ليس برنامج محاسبة جديدًا — بل <em>نظام تشغيل رقمي للنادي</em></h2>
+      <div style="margin-top:36px">
+        <div class="point" data-a><b>01</b><div><h4>المالية أولًا</h4><p>لأنها المشكلة الأخطر — وكل وحدة أخرى تصبّ فيها: الرواتب، العقود، المشتريات، المتجر.</p></div></div>
+        <div class="point" data-a><b>02</b><div><h4>مصدر واحد للحقيقة</h4><p>كل رقم مرتبط بمستنده، وبمن أنشأه ومن وافق عليه ومتى.</p></div></div>
+        <div class="point" data-a><b>03</b><div><h4>تنفيذ تدريجي</h4><p>يعمل بجانب النظام القديم حتى يثبت نفسه، ثم يحل محله.</p></div></div>
+      </div>
+    </div>
+    <div class="hub" id="hub" data-a="scale">
+      <svg class="lines" id="hubLines" viewBox="0 0 780 780"></svg>
+      <div class="core"><b>المالية</b><small>Finance Core</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="واجهتان في نظام واحد" data-chapter="02 · الرؤية">
+  <div class="head-block">
+    <div class="kicker" data-a>تجربة المستخدم</div>
+    <h2 class="title" data-a>واجهتان في نظام واحد — <em>بلا صدمة للموظف، وبقوة كاملة للإدارة</em></h2>
+  </div>
+  <div class="modes">
+    <div class="mode-info" data-a>
+      <div class="seg" id="modeSeg"><button class="on" data-mode="op">وضع التشغيل</button><button data-mode="ex">الوضع التنفيذي</button></div>
+      <div id="modeText"></div>
+    </div>
+    <div class="screen" data-a="scale">
+      <div class="bar"><i></i><i></i><i></i><span id="modeUrl">erp.club / finance / journal</span></div>
+      <!-- Operational -->
+      <div class="mode-pane" id="paneOp">
+        <div class="op-toolbar">
+          <div class="search"><svg class="i"><use href="#search"/></svg> بحث في القيود… <kbd style="margin-inline-start:auto;font-size:12px">F2</kbd></div>
+          <div class="b">الفترة: أيلول 2026</div>
+          <div class="b">مركز التكلفة</div>
+          <div class="b primary">+ قيد جديد <kbd style="font-size:11px;border-color:#fff">N</kbd></div>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>رقم القيد</th><th>التاريخ</th><th>البيان</th><th>مركز التكلفة</th><th>مدين</th><th>الحالة</th></tr></thead>
+          <tbody>
+            <tr><td class="en">JV-2026-0917</td><td class="en">30/09</td><td>رواتب الجهاز الفني — أيلول</td><td>كرة القدم</td><td class="n">6,300.00</td><td><span class="pill green">معتمد</span></td></tr>
+            <tr class="sel"><td class="en">JV-2026-0916</td><td class="en">29/09</td><td>شراء 20 كرة سلة — PO-0418</td><td>كرة السلة</td><td class="n">1,120.00</td><td><span class="pill amber">بانتظار الاعتماد</span></td></tr>
+            <tr><td class="en">JV-2026-0915</td><td class="en">29/09</td><td>دفعة رعاية — الربع الثالث</td><td>التسويق</td><td class="n">8,000.00</td><td><span class="pill green">معتمد</span></td></tr>
+            <tr><td class="en">JV-2026-0914</td><td class="en">28/09</td><td>صيانة المولدة الرئيسية</td><td>المنشآت</td><td class="n">740.00</td><td><span class="pill green">معتمد</span></td></tr>
+            <tr><td class="en">JV-2026-0913</td><td class="en">28/09</td><td>مصاريف سفر — مباراة خارج الأرض</td><td>كرة القدم</td><td class="n">2,150.00</td><td><span class="pill green">معتمد</span></td></tr>
+            <tr><td class="en">JV-2026-0912</td><td class="en">27/09</td><td>مبيعات المتجر — أسبوعي</td><td>المتجر</td><td class="n">1,380.00</td><td><span class="pill">مسودة</span></td></tr>
+            <tr><td class="en">JV-2026-0911</td><td class="en">27/09</td><td>سلفة موظف — قسم الإعلام</td><td>الإعلام</td><td class="n">300.00</td><td><span class="pill green">معتمد</span></td></tr>
+            <tr><td class="en">JV-2026-0910</td><td class="en">26/09</td><td>فاتورة كهرباء المنشآت</td><td>المنشآت</td><td class="n">1,020.00</td><td><span class="pill green">معتمد</span></td></tr>
+          </tbody>
+        </table>
+        <div class="shortcuts"><span><kbd>N</kbd> قيد جديد</span><span><kbd>Ctrl+S</kbd> حفظ</span><span><kbd>Ctrl+Enter</kbd> حفظ واعتماد</span><span><kbd>F2</kbd> بحث</span></div>
+      </div>
+      <!-- Executive -->
+      <div class="mode-pane hide" id="paneEx" style="padding:24px;background:var(--paper)">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div class="kpi hero"><small>إجمالي السيولة</small><b>$186,400</b><span class="delta down">▼ 12% عن آب</span></div>
+          <div class="kpi"><small>التزامات 30 يومًا</small><b>$74,000</b><span class="delta down">5 بنود</span></div>
+          <div class="kpi"><small>مستثمرون متأخرون</small><b style="color:var(--danger)">$33,500</b><span class="delta down">3 مستثمرين</span></div>
+        </div>
+        <div class="panel" style="margin-top:14px;height:250px"><h6>صافي السيولة — آخر 6 أشهر وتوقع 3 أشهر <small>آلاف $</small></h6><div class="chart-wrap" id="miniChart"></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+          <div class="panel" style="flex-direction:row;gap:14px;align-items:center"><span class="pill red"><svg class="i"><use href="#alert"/></svg> تجاوز</span><span style="font-size:15px">المنشآت: 103% من الموازنة</span></div>
+          <div class="panel" style="flex-direction:row;gap:14px;align-items:center"><span class="pill amber"><svg class="i"><use href="#cal"/></svg> قريب</span><span style="font-size:15px">3 عقود تنتهي خلال 30 يومًا</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 03 — MODULES
+     =================================================================== -->
+<section class="slide divider photo" id="ch3" data-title="المنظومة" data-chapter="03 · المنظومة" data-bare>
+  <div class="num-xl">03</div>
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور الثالث</div>
+    <h2 data-a>المنظومة</h2>
+    <p data-a>وحدات مترابطة تبدأ من المالية وتمتد إلى كل مفاصل النادي — كل حركة في وحدة تنعكس فورًا على الأخرى.</p>
+    <div class="chips" data-a><span>لوحة الإدارة</span><span>المالية</span><span>الموازنة</span><span>المستثمرون</span><span>العقود</span><span>الرواتب</span><span>الرياضة</span><span>المشتريات</span><span>المستودعات والأصول</span><span>الحوكمة</span><span>الذكاء</span><span>الموقع والمتجر</span></div>
+  </div>
+</section>
+
+<!-- Executive Dashboard -->
+<section class="slide compact" data-title="لوحة الإدارة التنفيذية" data-chapter="03 · المنظومة" data-mock data-enter="dash">
+  <div class="head-block" style="display:flex;justify-content:space-between;align-items:flex-end">
+    <div>
+      <div class="kicker" data-a>Executive Dashboard</div>
+      <h2 class="title" data-a>لوحة الإدارة: <em>ملخص أولًا، ثم كل رقم قابل للضغط</em></h2>
+    </div>
+    <div class="small" data-a="fade" style="display:flex;gap:10px;align-items:center"><svg class="i" style="color:var(--red);font-size:22px"><use href="#arrowl"/></svg> اضغط على أي مؤشر لعرض تفاصيله</div>
+  </div>
+  <div class="app" data-a="scale" style="height:720px">
+    <aside class="app-side">
+      <div class="logo"><img src="assets/img/crest-ittihad.png" alt=""><div><b>الأهلي · الاتحاد</b><small>منظومة النادي</small></div></div>
+      <a class="on"><svg class="i"><use href="#home"/></svg>الرئيسية</a>
+      <a><svg class="i"><use href="#wallet"/></svg>المالية</a>
+      <a><svg class="i"><use href="#pie"/></svg>الموازنة</a>
+      <a><svg class="i"><use href="#brief"/></svg>المستثمرون</a>
+      <a><svg class="i"><use href="#pen"/></svg>العقود</a>
+      <a><svg class="i"><use href="#cart"/></svg>المشتريات</a>
+      <a><svg class="i"><use href="#truck"/></svg>الموردون</a>
+      <a><svg class="i"><use href="#box"/></svg>المستودعات</a>
+      <a><svg class="i"><use href="#qr"/></svg>الأصول</a>
+      <a><svg class="i"><use href="#users"/></svg>الموظفون</a>
+      <a><svg class="i"><use href="#banknote"/></svg>الرواتب</a>
+      <a><svg class="i"><use href="#ball"/></svg>كرة القدم</a>
+      <a><svg class="i"><use href="#bball"/></svg>كرة السلة</a>
+      <a><svg class="i"><use href="#chart"/></svg>التقارير</a>
+    </aside>
+    <div class="app-main">
+      <div class="app-top">
+        <div><h5>مساء الخير، رئيس مجلس الإدارة</h5><small>الأربعاء 30 أيلول 2026 · آخر تحديث قبل دقيقة</small></div>
+        <div class="gs"><svg class="i"><use href="#search"/></svg> بحث شامل: موظف، لاعب، عقد، فاتورة…</div>
+      </div>
+      <div class="kpis" id="kpis">
+        <button class="kpi hero" data-drill="cash"><span class="more"><svg class="i"><use href="#cl"/></svg></span><small>إجمالي السيولة</small><b data-count="186400" data-prefix="$">$0</b><span class="delta up">▲ بنوك + صناديق</span></button>
+        <button class="kpi" data-drill="rev"><span class="more"><svg class="i"><use href="#cl"/></svg></span><small>الإيرادات · أيلول</small><b data-count="71800" data-prefix="$">$0</b><span class="delta up">▲ 8% عن آب</span></button>
+        <button class="kpi" data-drill="exp"><span class="more"><svg class="i"><use href="#cl"/></svg></span><small>المصروف · أيلول</small><b data-count="96300" data-prefix="$">$0</b><span class="delta down">▲ 12% عن آب</span></button>
+        <button class="kpi" data-drill="obl"><span class="more"><svg class="i"><use href="#cl"/></svg></span><small>التزامات 30 يومًا</small><b data-count="74000" data-prefix="$">$0</b><span class="delta down">5 بنود مستحقة</span></button>
+        <button class="kpi" data-drill="inv"><span class="more"><svg class="i"><use href="#cl"/></svg></span><small>مستثمرون متأخرون</small><b data-count="33500" data-prefix="$" style="color:var(--danger)">$0</b><span class="delta down">3 مستثمرين</span></button>
+      </div>
+      <div class="dash-grid" style="position:relative">
+        <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+          <div class="panel" style="height:318px;flex:none"><h6>صافي السيولة — فعلي وتوقع <small>آلاف الدولارات · مرّر المؤشر</small></h6><div class="chart-wrap" id="cashChart"></div></div>
+          <div class="panel"><h6>آخر النشاطات <small>سجل التدقيق</small></h6>
+            <div class="list-rows tight">
+              <div class="r"><span>أحمد (محاسب) أنشأ سند صرف <span class="en">PV-2291</span> <span style="color:var(--muted);font-size:12px">· قبل 12 د</span></span><span class="v">$1,120</span></div>
+              <div class="r"><span>المدير المالي اعتمد رواتب الجهاز الفني <span style="color:var(--muted);font-size:12px">· قبل 40 د</span></span><span class="v">$6,300</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+          <div class="panel"><h6>الموازنة مقابل الفعلي <small>حتى تاريخه · 2026</small></h6>
+            <div class="bars" id="dashBars">
+              <div class="b-row"><span>كرة القدم</span><div class="track"><i class="fill warn" data-w="78"></i></div><span class="pct">78%</span></div>
+              <div class="b-row"><span>كرة السلة</span><div class="track"><i class="fill" data-w="64"></i></div><span class="pct">64%</span></div>
+              <div class="b-row"><span>الإدارة</span><div class="track"><i class="fill" data-w="58"></i></div><span class="pct">58%</span></div>
+              <div class="b-row"><span>الإعلام</span><div class="track"><i class="fill warn" data-w="91"></i></div><span class="pct">91%</span></div>
+              <div class="b-row"><span>المنشآت</span><div class="track"><i class="fill over" data-w="100"></i></div><span class="pct" style="color:var(--danger)">103% ▲</span></div>
+            </div>
+          </div>
+          <div class="panel" style="flex:1"><h6>تنبيهات المستثمرين <small>الأقدم أولًا</small></h6>
+            <div class="list-rows tight">
+              <div class="r"><span>المحلات التجارية <span style="color:var(--muted);font-size:12px">· متأخر 46 يومًا</span></span><span class="pill red">$18,000</span></div>
+              <div class="r"><span>اللوحات الإعلانية <span style="color:var(--muted);font-size:12px">· متأخر 12 يومًا</span></span><span class="pill red">$9,500</span></div>
+              <div class="r"><span>استثمار الكافتيريا <span style="color:var(--muted);font-size:12px">· متأخر 3 أيام</span></span><span class="pill amber">$6,000</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="drill" id="drill">
+          <div class="dh"><b id="drillTitle"></b><button class="x" id="drillClose">إغلاق ✕</button></div>
+          <div class="total" id="drillTotal"></div>
+          <div class="list-rows" id="drillRows" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Finance -->
+<section class="slide" data-title="المالية والمحاسبة" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block">
+    <div class="kicker" data-a>Finance & Accounting</div>
+    <h2 class="title" data-a>المالية والمحاسبة: <em>قلب المنظومة</em> وتقارير لحظية</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 640px;gap:40px">
+    <div class="grid g2" style="gap:18px">
+      <div class="card" data-a><div class="ico"><svg class="i"><use href="#layers"/></svg></div><h4>الدفاتر والقيود</h4><p>دليل الحسابات · الأستاذ العام · القيود اليومية · الأرصدة الافتتاحية · إقفال الفترات</p></div>
+      <div class="card" data-a><div class="ico"><svg class="i"><use href="#bank"/></svg></div><h4>النقد والبنوك</h4><p>الصناديق · البنوك · سندات القبض · سندات الصرف · المطابقة البنكية</p></div>
+      <div class="card" data-a><div class="ico"><svg class="i"><use href="#coins"/></svg></div><h4>الإيرادات والمصروفات</h4><p>الإيرادات · المصروفات · الذمم المدينة · الذمم الدائنة · مراكز التكلفة · الموازنة</p></div>
+      <div class="card" data-a><div class="ico"><svg class="i"><use href="#chart"/></svg></div><h4>التقارير المالية</h4><p>ميزان المراجعة · قائمة الدخل · الميزانية العمومية · التدفق النقدي · تقارير مخصصة</p></div>
+    </div>
+    <div data-a="side">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+          <div><small class="small">قيد يومية</small><div class="h3">دفع رواتب الجهاز الفني — أيلول</div></div>
+          <span class="pill green"><svg class="i"><use href="#check"/></svg> متوازن</span>
+        </div>
+        <table class="tbl" style="font-size:17px">
+          <thead><tr><th>الحساب</th><th>مركز التكلفة</th><th>مدين</th><th>دائن</th></tr></thead>
+          <tbody>
+            <tr><td>رواتب الجهاز الفني</td><td><span class="pill">كرة القدم</span></td><td class="n">6,300.00</td><td class="n" style="color:#C9C4C0">—</td></tr>
+            <tr><td>البنك — حساب الدولار</td><td style="color:var(--muted)">—</td><td class="n" style="color:#C9C4C0">—</td><td class="n">6,300.00</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:18px 26px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:15px;color:var(--muted);border-top:1px solid var(--line)">
+          <span>أنشأه: <b style="color:var(--ink)">أحمد</b></span><span>اعتمده: <b style="color:var(--ink)">المدير المالي</b></span><span>المرفق: <b style="color:var(--ink)">كشف رواتب.pdf</b></span>
+        </div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h4 style="font-size:20px">متعدد العملات</h4>
+        <p style="font-size:17px">كل حركة تُسجَّل بعملتها الأصلية وسعر صرفها في تاريخها، مع تقارير موحّدة بعملة الأساس.</p>
+        <div style="display:flex;gap:10px;margin-top:14px"><span class="pill dark en">USD</span><span class="pill en">SYP</span><span class="pill en">TRY</span><span class="pill">+ أي عملة</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cost centers & budget -->
+<section class="slide" data-title="مراكز التكلفة والموازنة" data-chapter="03 · المنظومة" data-mock data-enter="budget">
+  <div class="head-block">
+    <div class="kicker" data-a>Cost Centers · Budget</div>
+    <h2 class="title" data-a>كل دولار له عنوان — <em>وكل اقتراب من الحد له إنذار</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px">
+    <div data-a>
+      <div class="tree">
+        <div class="t root"><span>كرة القدم — الموازنة السنوية</span><span class="v">$500,000</span></div>
+        <div class="t sub"><span>رواتب اللاعبين والجهاز الفني</span><span class="v">$300,000</span></div>
+        <div class="t sub"><span>انتقالات</span><span class="v">$80,000</span></div>
+        <div class="t sub"><span>مكافآت</span><span class="v">$50,000</span></div>
+        <div class="t sub"><span>سفر ومعسكرات</span><span class="v">$40,000</span></div>
+        <div class="t sub"><span>معدات وتجهيزات</span><span class="v">$30,000</span></div>
+      </div>
+      <div style="margin-top:22px">
+        <div class="small" style="margin-bottom:10px;font-weight:600">مراكز تكلفة أخرى</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span class="pill">كرة السلة</span><span class="pill">الأكاديمية</span><span class="pill">الإدارة</span><span class="pill">الإعلام</span><span class="pill">التسويق</span><span class="pill">المنشآت</span><span class="pill">الصيانة</span><span class="pill">المتجر</span><span class="pill">الفعاليات</span>
+        </div>
+      </div>
+    </div>
+    <div class="budget-demo" data-a="side">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div class="small">كرة القدم ← سفر ومعسكرات</div><div class="h3">جرّب: حرّك المصروف الفعلي</div></div>
+        <span class="pill" id="bPctPill">70%</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:14px;margin-top:10px"><div class="amount" id="bAmount">$28,000</div><div class="of">من <span class="en">$40,000</span></div></div>
+      <div class="meter"><i class="fill" id="bFill"></i>
+        <span class="mark" style="right:58.33%"><span>70%</span></span>
+        <span class="mark" style="right:70.83%"><span>85%</span></span>
+        <span class="mark" style="right:83.33%;opacity:.6"><span>100%</span></span>
+      </div>
+      <input type="range" class="rng" id="bRange" min="0" max="48000" step="500" value="30500" aria-label="المصروف الفعلي">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;font-size:15px">
+        <div><small class="small">Budget</small><b class="en" style="display:block;font-size:22px">$40,000</b></div>
+        <div><small class="small">Actual</small><b class="en" id="bAct" style="display:block;font-size:22px">$28,000</b></div>
+        <div><small class="small">Difference</small><b class="en" id="bDiff" style="display:block;font-size:22px">$12,000</b></div>
+        <div><small class="small">Percentage</small><b class="en" id="bPct" style="display:block;font-size:22px">70%</b></div>
+      </div>
+      <div class="alert" id="bAlert"><svg class="i"><use href="#bell"/></svg><span id="bAlertText"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Investors -->
+<section class="slide" data-title="إدارة المستثمرين" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block">
+    <div class="kicker" data-a>Investor Management</div>
+    <h2 class="title" data-a>المستثمرون: <em>لا دفعة تتأخر دون أن يعرف أحد</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:44px">
+    <div class="profile" data-a="scale">
+      <div class="ph">
+        <div class="who"><div class="avatar">م</div><div><h4>مستثمر المحلات التجارية — المدخل الشرقي</h4><small>عقد استثمار · سنتان · <span class="en">INV-2025-07</span></small></div></div>
+        <span class="pill red"><span class="dot"></span> متأخر 46 يومًا</span>
+      </div>
+      <div class="p-kpis">
+        <div><small>قيمة العقد</small><b>$144,000</b></div>
+        <div><small>المدفوع</small><b>$90,000</b></div>
+        <div><small>المتبقي</small><b>$54,000</b></div>
+        <div class="red"><small>المتأخر</small><b>$18,000</b></div>
+      </div>
+      <div class="tabs-line"><span class="on">نظرة عامة</span><span>الدفعات</span><span>العقد</span><span>المستندات</span><span>النشاط</span></div>
+      <div class="pay-timeline">
+        <div class="p"><i><svg class="i"><use href="#check"/></svg></i><b>15/11/25</b><small>مدفوعة</small></div>
+        <div class="p"><i><svg class="i"><use href="#check"/></svg></i><b>15/02/26</b><small>مدفوعة</small></div>
+        <div class="p"><i><svg class="i"><use href="#check"/></svg></i><b>15/05/26</b><small>مدفوعة</small></div>
+        <div class="p late"><i><svg class="i"><use href="#x"/></svg></i><b>15/08/26</b><small style="color:var(--danger);font-weight:700">متأخرة $18,000</small></div>
+        <div class="p next"><i><svg class="i"><use href="#clock"/></svg></i><b>15/11/26</b><small>القادمة</small></div>
+        <div class="p future"><i><svg class="i"><use href="#cal"/></svg></i><b>15/02/27</b><small>مجدولة</small></div>
+      </div>
+      <div style="padding:0 32px 26px;display:flex;gap:10px;flex-wrap:wrap">
+        <span class="pill"><svg class="i"><use href="#file"/></svg> العقد الموقّع.pdf</span>
+        <span class="pill"><svg class="i"><use href="#receipt"/></svg> الضريبة المستحقة تُحسب تلقائيًا</span>
+        <span class="pill"><svg class="i"><use href="#history"/></svg> سجل المراسلات</span>
+      </div>
+    </div>
+    <div data-a="side">
+      <div class="h3" style="margin-bottom:6px">تسلسل التنبيهات التلقائية</div>
+      <p class="small" style="margin-bottom:10px">قبل الاستحقاق وبعده — دون الاعتماد على ذاكرة أحد.</p>
+      <div class="cadence">
+        <div class="c"><b>30</b><div><h5>يومًا قبل الاستحقاق</h5><p>تذكير أول للمستثمر وللمسؤول المالي.</p></div></div>
+        <div class="c"><b>15</b><div><h5>يومًا قبل</h5><p>تذكير ثانٍ وإشعار داخلي.</p></div></div>
+        <div class="c"><b>7</b><div><h5>أيام قبل</h5><p>تنبيه المدير المالي مع سند قبض جاهز.</p></div></div>
+        <div class="c hot"><b>0</b><div><h5>يوم الاستحقاق</h5><p>تنبيه مباشر ومتابعة التحصيل.</p></div></div>
+        <div class="c hot"><b>+1</b><div><h5>بعد التأخير</h5><p>تصعيد يومي للإدارة التنفيذية وإظهاره على لوحة الإدارة.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contracts -->
+<section class="slide" data-title="إدارة العقود" data-chapter="03 · المنظومة" data-mock data-enter="contracts">
+  <div class="head-block">
+    <div class="kicker" data-a>Contract Management</div>
+    <h2 class="title" data-a>العقود: <em>كل التزام بتاريخه ودفعاته ومسؤوله</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 420px;gap:44px">
+    <div>
+      <div class="ctypes" data-a>
+        <div>لاعبون <span>46</span></div><div>موظفون <span>38</span></div><div>موردون <span>21</span></div><div>خدمات <span>12</span></div>
+        <div>مدربون <span>9</span></div><div>مستثمرون <span>7</span></div><div>مستأجرون <span>6</span></div><div>رعاة <span>5</span></div>
+      </div>
+      <div class="expiring" data-a>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="h3">عقود تنتهي قريبًا</div>
+          <div class="seg" id="expSeg"><button class="on" data-d="30">30 يومًا</button><button data-d="60">60 يومًا</button><button data-d="90">90 يومًا</button></div>
+        </div>
+        <div class="exp-list" id="expList"></div>
+      </div>
+    </div>
+    <div class="card" data-a="side" style="align-self:start">
+      <div class="ico"><svg class="i"><use href="#pen"/></svg></div>
+      <h4>كل عقد يحتوي</h4>
+      <div class="list-rows" style="margin-top:8px">
+        <div class="r" style="font-size:19px"><span>القيمة والعملة</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>تاريخ البداية والنهاية</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>جدول الدفعات <span class="en" style="color:var(--muted);font-size:14px">Payment Schedule</span></span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>المرفقات</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>التجديد</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>الشخص المسؤول</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+        <div class="r" style="font-size:19px"><span>الحالة وخط زمني للدفعات</span><svg class="i" style="color:var(--success)"><use href="#check"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HR & Payroll -->
+<section class="slide" data-title="الموارد البشرية والرواتب" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block">
+    <div class="kicker" data-a>HR · Payroll · Attendance</div>
+    <h2 class="title" data-a>الرواتب: <em>صافٍ واضح يُحسب تلقائيًا</em> من الحضور والقواعد</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:720px 1fr;gap:48px">
+    <div class="payslip" data-a="scale">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div><div class="h3">قسيمة راتب — أيلول 2026</div><div class="small">موظف · قسم المحاسبة · جرّب تعديل الأرقام</div></div>
+        <span class="pill blue">محسوبة تلقائيًا</span>
+      </div>
+      <div class="line"><label><span class="sign base">=</span>الراتب الأساسي</label><input class="pay" data-sign="1" value="1000" inputmode="numeric"></div>
+      <div class="line"><label><span class="sign plus">+</span>مكافأة / حوافز</label><input class="pay" data-sign="1" value="100" inputmode="numeric"></div>
+      <div class="line"><label><span class="sign minus">−</span>تأخير</label><input class="pay" data-sign="-1" value="20" inputmode="numeric"></div>
+      <div class="line"><label><span class="sign minus">−</span>غياب</label><input class="pay" data-sign="-1" value="50" inputmode="numeric"></div>
+      <div class="line"><label><span class="sign minus">−</span>اقتطاع سلفة</label><input class="pay" data-sign="-1" value="100" inputmode="numeric"></div>
+      <div class="line" style="border:0"><label><span class="sign minus">−</span>عقوبات</label><input class="pay" data-sign="-1" value="0" inputmode="numeric"></div>
+      <div class="net"><span>صافي الراتب</span><b id="netPay">$930</b></div>
+    </div>
+    <div>
+      <div class="h3" data-a style="margin-bottom:14px">قواعد الحضور — تضعها الإدارة وتنعكس على الرواتب</div>
+      <div class="rules">
+        <div class="rl" data-a><span>سماح بالتأخير</span><b class="pill green">15 دقيقة</b></div>
+        <div class="rl" data-a><span>تأخير 30 دقيقة</span><b class="pill amber">إنذار</b></div>
+        <div class="rl" data-a><span>3 تأخيرات في الشهر</span><b class="pill red">خصم</b></div>
+        <div class="rl" data-a><span>غياب بدون إذن</span><b class="pill red">خصم يوم</b></div>
+      </div>
+      <div class="h3" data-a style="margin:30px 0 12px">ملف الموظف الكامل</div>
+      <div data-a style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">البيانات والقسم والمنصب</span><span class="pill">العقد</span><span class="pill">الحضور والانصراف</span><span class="pill">الإجازات</span><span class="pill">السلف</span><span class="pill">المكافآت</span><span class="pill">الخصميات والعقوبات</span><span class="pill">المستندات</span><span class="pill">سجل الرواتب</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sports -->
+<section class="slide" data-title="الإدارة الرياضية" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block" style="display:flex;justify-content:space-between;align-items:flex-end">
+    <div>
+      <div class="kicker" data-a>Players & Sports Management</div>
+      <h2 class="title" data-a>الرياضة: <em>كرة القدم وكرة السلة</em> ضمن المنظومة نفسها</h2>
+    </div>
+    <div class="seg" id="sportSeg" data-a><button class="on" data-s="fb"><svg class="i"><use href="#ball"/></svg> كرة القدم</button><button data-s="bb"><svg class="i"><use href="#bball"/></svg> كرة السلة</button></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 520px;gap:40px">
+    <div class="player" data-a="scale">
+      <div class="pic">
+        <div class="jersey" id="pJersey">10</div>
+        <img src="assets/img/crest-ittihad.png" alt="">
+        <small id="pTeam">الفريق الأول · كرة القدم</small>
+        <h4 id="pName">اللاعب رقم 10<br>صانع ألعاب</h4>
+      </div>
+      <div class="info">
+        <div class="pk">
+          <div><small>الراتب الشهري</small><b id="pSal">$3,500</b></div>
+          <div><small>نهاية العقد</small><b id="pEnd">30/06/27</b></div>
+          <div><small>مكافآت الموسم</small><b id="pBonus">$2,400</b></div>
+          <div><small>الحالة الطبية</small><b id="pMed" style="font-size:20px;color:var(--success)">جاهز</b></div>
+        </div>
+        <div class="tabs-line" style="padding:0"><span class="on">العقد</span><span>الدفعات</span><span>الأداء</span><span>الطبابة</span><span>المستندات</span></div>
+        <div class="list-rows" style="margin-top:10px">
+          <div class="r" style="font-size:17px"><span>راتب أيلول<span class="meta">سند صرف مرتبط</span></span><span class="pill green">مدفوع</span></div>
+          <div class="r" style="font-size:17px"><span>مكافأة فوز — الجولة 4<span class="meta">معتمدة من مدير الفريق</span></span><span class="v" id="pRow2">$400</span></div>
+          <div class="r" style="font-size:17px"><span>عقوبة انضباطية<span class="meta">تأخير عن التدريب</span></span><span class="v" style="color:var(--danger)">−$100</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="squad" data-a>
+        <div><b id="sq1">28</b><small>لاعبًا</small></div>
+        <div><b id="sq2">7</b><small>الجهاز الفني</small></div>
+        <div><b id="sq3">3</b><small>الطاقم الطبي</small></div>
+        <div><b id="sq4">$41,200</b><small>تكلفة أيلول</small></div>
+      </div>
+      <div class="h3" data-a style="margin:26px 0 12px">كل فريق يُدار بالكامل</div>
+      <div data-a style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill"><svg class="i"><use href="#users"/></svg> اللاعبون والمدربون</span><span class="pill"><svg class="i"><use href="#pen"/></svg> العقود</span><span class="pill"><svg class="i"><use href="#banknote"/></svg> الرواتب والمكافآت</span><span class="pill"><svg class="i"><use href="#alert"/></svg> العقوبات</span><span class="pill"><svg class="i"><use href="#heart"/></svg> الإصابات</span><span class="pill"><svg class="i"><use href="#plane"/></svg> السفر والمعسكرات</span><span class="pill"><svg class="i"><use href="#shirt"/></svg> التجهيزات</span><span class="pill"><svg class="i"><use href="#file"/></svg> المستندات</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Procurement -->
+<section class="slide" data-title="المشتريات" data-chapter="03 · المنظومة" data-mock data-enter="flow">
+  <div class="head-block">
+    <div class="kicker" data-a>Purchase Management</div>
+    <h2 class="title" data-a>المشتريات: <em>من الطلب إلى الدفع</em> — كل مرحلة موثّقة بصاحبها ووقتها</h2>
+    <p class="lead" data-a style="font-size:22px;margin-top:10px">سيناريو: فريق كرة السلة يحتاج 20 كرة. اضغط على أي مرحلة، أو شغّل السيناريو.</p>
+  </div>
+  <div class="flow" id="flow" data-a>
+    <i class="prog-line" id="flowLine"></i>
+  </div>
+  <div class="flow-detail" id="flowDetail" data-a></div>
+  <div class="flow-ctrl" data-a>
+    <button class="btn light-btn" id="flowPlay"><svg class="i"><use href="#play"/></svg> تشغيل السيناريو</button>
+    <span class="small">القاعدة: لا تتجاوز أي عملية رئيسية 3–5 خطوات للمستخدم، ولا يمكن حذف تاريخها دون أثر.</span>
+  </div>
+</section>
+
+<!-- Inventory & Assets -->
+<section class="slide" data-title="المستودعات والأصول" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block">
+    <div class="kicker" data-a>Inventory · Assets · Suppliers</div>
+    <h2 class="title" data-a>نعرف ماذا نملك، <em>وأين هو، ومع من</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:40px">
+    <div class="card" style="padding:0;overflow:hidden" data-a>
+      <div style="padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)">
+        <div class="h3" style="font-size:22px">المخزون — كل المستودعات</div>
+        <span class="pill red"><svg class="i"><use href="#alert"/></svg> 3 أصناف تحت الحد الأدنى</span>
+      </div>
+      <table class="tbl" style="font-size:17px">
+        <thead><tr><th>SKU</th><th>الصنف</th><th>المستودع</th><th>الكمية</th><th>الحد الأدنى</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="en">FB-BALL-05</td><td>كرة قدم مقاس 5</td><td>معدات كرة القدم</td><td class="n">34</td><td class="n">20</td><td><span class="pill green">جيد</span></td></tr>
+          <tr><td class="en">BB-BALL-07</td><td>كرة سلة مقاس 7</td><td>معدات كرة السلة</td><td class="n">26</td><td class="n">10</td><td><span class="pill green">جيد</span></td></tr>
+          <tr class="sel"><td class="en">KIT-HOME-M</td><td>قميص الفريق الأساسي M</td><td>المتجر</td><td class="n">6</td><td class="n">15</td><td><span class="pill red">منخفض</span></td></tr>
+          <tr class="sel"><td class="en">OFF-A4</td><td>ورق طباعة A4</td><td>مواد مكتبية</td><td class="n">4</td><td class="n">10</td><td><span class="pill red">منخفض</span></td></tr>
+          <tr><td class="en">MED-TAPE</td><td>رباط طبي</td><td>الطبابة</td><td class="n">48</td><td class="n">30</td><td><span class="pill green">جيد</span></td></tr>
+          <tr class="sel"><td class="en">MNT-FLTR</td><td>فلتر المولدة</td><td>الصيانة</td><td class="n">1</td><td class="n">2</td><td><span class="pill red">منخفض</span></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:16px 24px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)">
+        <span class="small" style="margin-left:6px">المستودعات:</span><span class="pill">معدات كرة القدم</span><span class="pill">معدات كرة السلة</span><span class="pill">ملابس</span><span class="pill">مواد مكتبية</span><span class="pill">صيانة</span><span class="pill">متجر النادي</span>
+      </div>
+    </div>
+    <div class="card" data-a="side">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <svg class="qr" id="assetQr" viewBox="0 0 29 29" shape-rendering="crispEdges" aria-label="رمز QR توضيحي"></svg>
+        <div style="flex:1">
+          <span class="pill en">AST-0142</span>
+          <div class="h3" style="margin-top:8px">حاسوب محمول — المحاسبة</div>
+          <div class="list-rows" style="margin-top:6px">
+            <div class="r" style="font-size:16px"><span>مُسلَّم إلى</span><b>المحاسب الرئيسي</b></div>
+            <div class="r" style="font-size:16px"><span>الموقع</span><b>مكتب المالية</b></div>
+            <div class="r" style="font-size:16px"><span>القيمة · الضمان</span><b class="en">$850 · 03/2029</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="small" style="margin-top:18px;font-weight:600">دورة حياة الأصل</div>
+      <div class="lifecycle" id="lifecycle">
+        <span>المستودع</span><i>←</i><span class="on">مُسلَّم</span><i>←</i><span>نُقل</span><i>←</i><span>صيانة</span><i>←</i><span>مُعاد</span><i>←</i><span>مُستبعد</span>
+      </div>
+      <div class="small" style="margin-top:18px">أصول مثل: حواسيب، طابعات، شاشات، راوترات، UPS، كاميرات، أثاث — لكل منها رمز QR وسجل كامل.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Governance -->
+<section class="slide" data-title="الحوكمة والموافقات" data-chapter="03 · المنظومة" data-mock data-enter="approve">
+  <div class="head-block">
+    <div class="kicker" data-a>Approval Engine · Roles · Audit Log</div>
+    <h2 class="title" data-a>الحوكمة: <em>لا صرف بلا موافقة، ولا تعديل بلا أثر</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px">
+    <div class="card" data-a style="padding:34px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="h3">محرك الموافقات — حرّك قيمة المصروف</div>
+        <span class="pill">الحدود قابلة للتعديل</span>
+      </div>
+      <div style="font-size:72px;font-weight:700;direction:ltr;text-align:right;margin-top:10px;font-variant-numeric:tabular-nums" id="apAmount">$450</div>
+      <input type="range" class="rng" id="apRange" min="0" max="8" step="1" value="3" aria-label="قيمة المصروف">
+      <div class="approvers" id="approvers">
+        <div class="ap"><small>&lt; $100</small><b>مدير القسم</b></div>
+        <div class="ap"><small>$100 – $1,000</small><b>المدير المالي</b></div>
+        <div class="ap"><small>&gt; $1,000</small><b>المدير التنفيذي</b></div>
+        <div class="ap"><small>&gt; $10,000</small><b>مجلس الإدارة</b></div>
+      </div>
+      <p class="small" style="margin-top:18px" id="apNote"></p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div class="audit" data-a="side">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:20px;color:#fff">سجل التدقيق</b><span class="pill red" style="background:rgba(215,25,32,.2);border-color:transparent;color:#FF8A8E">لا يمكن حذفه</span></div>
+        <div><span class="k">المستخدم</span> أحمد — محاسب</div>
+        <div><span class="k">العملية</span> تعديل فاتورة <span class="en">PI-1187</span></div>
+        <div><span class="k">القيمة</span> <span class="old">$1,200</span> ← <span class="new">$1,450</span></div>
+        <div><span class="k">الوقت</span> <span class="en">30/09/2026 · 11:42:07</span></div>
+        <div><span class="k">IP · الجهاز</span> <span class="en">192.168.10.24 · ACC-WS-03</span></div>
+      </div>
+      <table class="perm" data-a>
+        <thead><tr><th>الدور</th><th>View</th><th>Create</th><th>Edit</th><th>Delete</th><th>Approve</th><th>Export</th></tr></thead>
+        <tbody>
+          <tr><td>رئيس مجلس الإدارة</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
+          <tr><td>المدير المالي</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
+          <tr><td>محاسب</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
+          <tr><td>أمين المستودع</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr><td>مدير كرة القدم</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Notifications + AI -->
+<section class="slide dark" data-title="التنبيهات والمساعد الذكي" data-chapter="03 · المنظومة" data-mock data-enter="ai">
+  <div class="head-block">
+    <div class="kicker" data-a>Notifications · AI Executive Assistant</div>
+    <h2 class="title" data-a>مساعد تنفيذي <em>يجيب من البيانات فقط</em> — ويذكر المصدر</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:44px">
+    <div data-a>
+      <div class="notif">
+        <div class="nf"><div class="ic" style="background:rgba(185,28,28,.2);color:#FF8A8E"><svg class="i"><use href="#brief"/></svg></div><div><b>مستثمر متأخر 46 يومًا</b><small>المحلات التجارية — $18,000</small></div><time>الآن</time></div>
+        <div class="nf"><div class="ic" style="background:rgba(217,119,6,.2);color:#FBBF24"><svg class="i"><use href="#pie"/></svg></div><div><b>الإعلام بلغ 91% من موازنته</b><small>تجاوز حد التنبيه 85%</small></div><time>10 د</time></div>
+        <div class="nf"><div class="ic" style="background:rgba(217,119,6,.2);color:#FBBF24"><svg class="i"><use href="#pen"/></svg></div><div><b>عقد ينتهي خلال 18 يومًا</b><small>خدمة الحراسة والأمن</small></div><time>1 س</time></div>
+        <div class="nf"><div class="ic" style="background:rgba(37,99,235,.2);color:#93B4F8"><svg class="i"><use href="#banknote"/></svg></div><div><b>رواتب تشرين الأول جاهزة للاعتماد</b><small>$52,700 · 64 مستفيدًا</small></div><time>2 س</time></div>
+        <div class="nf"><div class="ic" style="background:rgba(217,119,6,.2);color:#FBBF24"><svg class="i"><use href="#box"/></svg></div><div><b>مخزون منخفض</b><small>قميص الفريق الأساسي M — 6 قطع</small></div><time>3 س</time></div>
+        <div class="nf"><div class="ic" style="background:rgba(185,28,28,.2);color:#FF8A8E"><svg class="i"><use href="#db"/></svg></div><div><b>فشل النسخ الاحتياطي الليلي</b><small>يُعاد تلقائيًا · تم إبلاغ قسم IT</small></div><time>أمس</time></div>
+      </div>
+      <div class="channels"><span class="pill dark" style="background:var(--red);border-color:var(--red)">داخل النظام</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">WhatsApp · لاحقًا</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">Email · لاحقًا</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">SMS · لاحقًا</span></div>
+    </div>
+    <div class="chat" data-a="scale">
+      <div class="ch-head"><div class="ai"><svg class="i"><use href="#sparkles"/></svg></div><div><b>المساعد التنفيذي</b><small>يقرأ من بيانات النظام · لا يخترع أرقامًا</small></div></div>
+      <div class="msgs" id="msgs"></div>
+      <div class="suggest" id="suggest"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Website & Store -->
+<section class="slide deep" data-title="الموقع الرسمي والمتجر" data-chapter="03 · المنظومة" data-mock>
+  <div class="head-block">
+    <div class="kicker" data-a>Official Website · Online Store</div>
+    <h2 class="title" data-a>واجهة النادي أمام جمهوره — <em>ومتجر مخزونه مربوط بالإدارة</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:40px">
+    <div class="browser" data-a="scale">
+      <div class="bar"><i></i><i></i><i></i><span>alahli-aleppo.club</span></div>
+      <div class="site-hero">
+        <div class="site-nav"><img src="assets/img/crest-ittihad.png" alt=""><nav><span>الرئيسية</span><span>الأخبار</span><span>الفرق</span><span>المباريات</span><span>الأكاديمية</span><span>التاريخ</span><span>المتجر</span></nav></div>
+        <div class="copy"><small>MATCH DAY · الدوري</small><h5>القلعة الحمراء تستقبل جمهورها</h5></div>
+      </div>
+      <div class="matchcard">
+        <div class="tm"><img src="assets/img/crest-ittihad.png" alt="">الأهلي</div>
+        <div class="sc">2 – 1<small>انتهت · الجولة 4</small></div>
+        <div class="tm">الفريق الضيف<span class="b">FC</span></div>
+      </div>
+      <div style="display:flex;gap:8px;padding:14px 26px 20px;flex-wrap:wrap">
+        <span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">الأخبار</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">اللاعبون</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">النتائج والترتيب</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">الإنجازات</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">الرعاة</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">نظام إدارة محتوى CMS</span>
+      </div>
+    </div>
+    <div data-a="side">
+      <div class="store" id="store">
+        <div class="prod"><div class="img"><svg class="i" style="color:var(--red);stroke-width:1.2"><use href="#shirt"/></svg></div><div class="pb"><b>القميص الأساسي</b><div class="price">المقاس M<span>$35</span></div><button class="buy" data-sku="KIT-HOME-M">شراء</button></div></div>
+        <div class="prod"><div class="img"><svg class="i" style="color:#fff;stroke-width:1.2"><use href="#shirt"/></svg></div><div class="pb"><b>طقم التدريب</b><div class="price">المقاس L<span>$28</span></div><button class="buy" data-sku="KIT-TRN-L">شراء</button></div></div>
+        <div class="prod"><div class="img"><svg class="i" style="color:var(--red);stroke-width:1.2"><use href="#trophy"/></svg></div><div class="pb"><b>وشاح النادي</b><div class="price">مقاس واحد<span>$12</span></div><button class="buy" data-sku="SCARF">شراء</button></div></div>
+      </div>
+      <div class="stock-sync">
+        <div class="box"><small>المتجر الإلكتروني · القميص الأساسي M</small><b id="stockWeb">6</b></div>
+        <div class="arrow"><svg class="i"><use href="#refresh"/></svg></div>
+        <div class="box"><small>مخزون الـERP · مستودع المتجر</small><b id="stockErp">6</b></div>
+      </div>
+      <p class="small" style="margin-top:14px">اضغط «شراء» على القميص الأساسي: يتحدث المخزون في النظام تلقائيًا، ويُنشأ الطلب والقيد المالي.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px"><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">المقاسات والألوان</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">الطلبات والعملاء</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">كوبونات</span><span class="pill" style="background:transparent;color:#D6D1D6;border-color:var(--line-dark)">الشحن والدفع</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 04 — INFRASTRUCTURE
+     =================================================================== -->
+<section class="slide divider" id="ch4" data-title="البنية التحتية" data-chapter="04 · البنية التحتية" data-bare>
+  <div class="num-xl">04</div>
+  <img class="watermark" src="assets/img/crest-ittihad.png" alt="">
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور الرابع</div>
+    <h2 data-a>البنية التحتية</h2>
+    <p data-a>لا يمكن الاعتماد على أي نظام — مهما كان حديثًا — بدون شبكة وإنترنت وكهرباء ونسخ احتياطي موثوقة.</p>
+    <div class="chips" data-a><span>الشبكة الداخلية</span><span>Fiber + Starlink</span><span>UPS</span><span>NAS · 3-2-1</span><span>الأجهزة</span><span>الانتقال من الرشيد</span></div>
+  </div>
+</section>
+
+<section class="slide" data-title="الشبكة والإنترنت" data-chapter="04 · البنية التحتية" data-note="الأسعار تقريبية وقابلة للتغيير حسب المورّد والتوافر">
+  <div class="head-block">
+    <div class="kicker" data-a>Network · Internet</div>
+    <h2 class="title" data-a>اتصال رئيسي + احتياطي، <em>وشبكة داخلية منظّمة</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:640px 1fr;gap:44px">
+    <div data-a>
+      <div class="seg" id="netSeg"><button data-o="fiber">Fiber</button><button data-o="star">Starlink</button><button class="on" data-o="rec">الحل الموصى به</button></div>
+      <div class="opt-card" style="margin-top:18px">
+        <div class="opt-pane" data-o="fiber">
+          <h4>الألياف الضوئية · Fiber</h4><p class="small">الأفضل استقرارًا وسرعة كاتصال رئيسي.</p>
+          <ul class="pros" style="margin-top:22px">
+            <li class="p"><svg class="i"><use href="#check"/></svg>أعلى استقرار وأقل زمن استجابة.</li>
+            <li class="p"><svg class="i"><use href="#check"/></svg>سرعات عالية للرفع والتنزيل والنسخ الاحتياطي الخارجي.</li>
+            <li class="c"><svg class="i"><use href="#alert"/></svg>قد يحتاج حفرًا وتمديدًا ووقتًا للموافقات.</li>
+          </ul>
+        </div>
+        <div class="opt-pane" data-o="star">
+          <h4>Starlink</h4><p class="small">سريع التركيب — كاتصال رئيسي أو احتياطي.</p>
+          <div class="price"><div><small>الجهاز · تقريبًا</small><b>$1,200</b></div><div><small>الاشتراك الشهري · تقريبًا</small><b>$120</b></div></div>
+          <ul class="pros">
+            <li class="p"><svg class="i"><use href="#check"/></svg>لا يحتاج بنية أرضية أو حفرًا.</li>
+            <li class="c"><svg class="i"><use href="#alert"/></svg>يحتاج موقع تركيب مكشوفًا وكهرباء محمية.</li>
+          </ul>
+        </div>
+        <div class="opt-pane on" data-o="rec">
+          <h4>الحل الموصى به</h4><p class="small">اتصالان مستقلان مع تبديل تلقائي عند الانقطاع.</p>
+          <ul class="pros" style="margin-top:22px">
+            <li class="p"><svg class="i"><use href="#check"/></svg><span><b>Fiber</b> اتصال رئيسي + <b>Starlink</b> اتصال احتياطي.</span></li>
+            <li class="p"><svg class="i"><use href="#check"/></svg><span>إن تعذّر الفايبر: <b>Starlink</b> رئيسي + <b>DSL</b> للطوارئ.</span></li>
+            <li class="p"><svg class="i"><use href="#check"/></svg><span>تبديل تلقائي <span class="en">Failover</span> عبر الراوتر / الجدار الناري.</span></li>
+            <li class="p"><svg class="i"><use href="#check"/></svg><span>العمل الداخلي لا يتوقف أصلًا عند انقطاع الإنترنت — السيرفر داخل النادي.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div data-a="scale">
+      <svg class="topo" viewBox="0 0 980 650" id="topo" aria-label="مخطط الشبكة المقترحة"></svg>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="الكهرباء والنسخ الاحتياطي" data-chapter="04 · البنية التحتية">
+  <div class="head-block">
+    <div class="kicker" data-a>Power · Backup Strategy</div>
+    <h2 class="title" data-a>قاعدة 3-2-1 — <em>ونهاية عصر الـFlash USB</em></h2>
+  </div>
+  <div class="b321">
+    <div class="card" data-a><div class="n">3</div><h4>نسخ من البيانات</h4><p>قاعدة البيانات الأساسية + نسختان احتياطيتان مستقلتان.</p></div>
+    <div class="card" data-a><div class="n">2</div><h4>وسيطا تخزين مختلفان</h4><p>السيرفر (RAID SSD) + جهاز NAS محلي منفصل.</p></div>
+    <div class="card" data-a><div class="n">1</div><h4>نسخة خارج الموقع</h4><p>نسخة مشفّرة خارج مبنى النادي — تحمي من الحريق والسرقة والتلف.</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px">
+    <div data-a>
+      <div class="h3">جدول آلي بالكامل</div>
+      <div class="sched">
+        <div><b>يومي</b><small>نسخ تلقائي كل ليلة</small></div>
+        <div><b>أسبوعي</b><small>نسخة كاملة Full Backup</small></div>
+        <div><b>شهري</b><small>أرشيف طويل الأمد</small></div>
+      </div>
+      <p class="small" style="margin-top:18px">مع تنبيه فوري إذا فشلت أي عملية نسخ، واختبار استرجاع دوري.</p>
+    </div>
+    <div data-a>
+      <div class="h3">الكهرباء: النظام لا يتوقف لحظة الانقطاع</div>
+      <div class="sched">
+        <div style="border-color:var(--red)"><b>UPS للسيرفر</b><small>وقت كافٍ للإغلاق الآمن</small></div>
+        <div style="border-color:var(--red)"><b>UPS للشبكة</b><small>الراوتر والسويتش والإنترنت</small></div>
+        <div><b>لاحقًا</b><small>Inverter + بطاريات</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="الأجهزة والسيرفر" data-chapter="04 · البنية التحتية">
+  <div class="head-block">
+    <div class="kicker" data-a>Hardware · Server</div>
+    <h2 class="title" data-a>استبدال محطات المحاسبة والإدارة — <em>وسيرفر داخلي بتصميم هجين</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px">
+    <div class="spec-compare" data-a="scale">
+      <div class="col new">
+        <h4>الحد الأدنى للمحطة الجديدة <span class="pill green">مطلوب</span></h4>
+        <div class="sp"><span>المعالج</span><span>Intel Core i5 (حديث)</span></div>
+        <div class="sp"><span>الذاكرة</span><span>16GB RAM</span></div>
+        <div class="sp"><span>التخزين</span><span>512GB NVMe SSD</span></div>
+        <div class="sp"><span>النظام</span><span>Windows 11 Pro</span></div>
+        <div class="sp"><span>الشبكة</span><span>Gigabit Ethernet</span></div>
+        <p class="small" style="margin-top:14px">للمحاسبة والموارد البشرية والإدارة.</p>
+      </div>
+      <div class="col old">
+        <h4>الأجهزة الحالية <span class="pill red">تُستبدل</span></h4>
+        <div class="sp"><span>المعالج</span><span>Core 2 Duo</span></div>
+        <div class="sp"><span>الذاكرة</span><span>محدودة</span></div>
+        <div class="sp"><span>التخزين</span><span>HDD قديم</span></div>
+        <div class="sp"><span>النظام</span><span>Windows 7</span></div>
+        <div class="sp"><span>الشبكة</span><span>غير منظمة</span></div>
+        <p class="small" style="margin-top:14px">أجهزة مشتركة بين الموظفين.</p>
+      </div>
+    </div>
+    <div class="card" data-a="side" style="background:var(--ink);color:#fff;border-color:var(--ink)">
+      <div class="ico" style="background:rgba(215,25,32,.2);color:#FF4B51"><svg class="i"><use href="#server"/></svg></div>
+      <h4 style="font-size:28px">السيرفر الداخلي</h4>
+      <div class="list-rows" style="margin-top:10px">
+        <div class="r" style="font-size:19px;border-color:var(--line-dark)"><span style="color:var(--muted-dark)">المعالج</span><b class="en">Xeon / Ryzen Pro</b></div>
+        <div class="r" style="font-size:19px;border-color:var(--line-dark)"><span style="color:var(--muted-dark)">الذاكرة</span><b class="en">32–64GB RAM</b></div>
+        <div class="r" style="font-size:19px;border-color:var(--line-dark)"><span style="color:var(--muted-dark)">التخزين</span><b class="en">RAID SSD</b></div>
+        <div class="r" style="font-size:19px;border-color:var(--line-dark)"><span style="color:var(--muted-dark)">الحماية</span><b>تخزين مزدوج + UPS</b></div>
+      </div>
+      <p style="margin-top:18px;font-size:18px;color:var(--muted-dark);line-height:1.8"><b style="color:#fff">تصميم هجين:</b> سيرفر داخلي يعمل حتى عند انقطاع الإنترنت، مع وصول آمن عن بُعد للإدارة.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="الانتقال من الرشيد" data-chapter="04 · البنية التحتية">
+  <div class="head-block">
+    <div class="kicker" data-a>Migration</div>
+    <h2 class="title" data-a>الانتقال من «الرشيد»: <em>لا نحذف القديم قبل أن يثبت الجديد</em></h2>
+  </div>
+  <div class="migrate">
+    <div class="m" data-a><div class="n">01</div><h4>التصدير</h4><span class="en">Data Export</span><p>استخراج كامل البيانات مع نسخة مجمّدة من النظام القديم.</p></div>
+    <div class="m" data-a><div class="n">02</div><h4>التنظيف</h4><span class="en">Cleanup</span><p>إزالة التكرار وتصحيح الأسماء والأرصدة الشاذة.</p></div>
+    <div class="m" data-a><div class="n">03</div><h4>المطابقة</h4><span class="en">Mapping</span><p>ربط الحسابات القديمة بدليل الحسابات ومراكز التكلفة الجديدة.</p></div>
+    <div class="m" data-a><div class="n">04</div><h4>الاستيراد</h4><span class="en">Import</span><p>الحسابات، الأرصدة، العملاء، الموردون، المخزون، الحركات، والعقود إن أمكن.</p></div>
+    <div class="m" data-a><div class="n">05</div><h4>التحقق</h4><span class="en">Validation</span><p>مطابقة ميزان المراجعة والأرصدة بين النظامين رقمًا برقم.</p></div>
+  </div>
+  <div class="gantt" data-a>
+    <div class="gr"><span>الرشيد (القديم)</span><div class="lane"><i class="cut" style="right:75%"></i><span style="right:0;width:75%;background:#8A858A">يعمل كالمعتاد — للقراءة بعد الانتقال</span></div></div>
+    <div class="gr"><span>المنظومة الجديدة</span><div class="lane"><i class="cut" style="right:75%"></i><span style="right:25%;width:75%;background:var(--ink)">إعداد ← تشغيل ← النظام الرئيسي</span></div></div>
+    <div class="gr"><span>التشغيل المتوازي</span><div class="lane"><i class="cut" style="right:75%"></i><span style="right:25%;width:50%;background:var(--red)">النظامان معًا · مقارنة يومية للأرقام</span></div></div>
+    <div class="axis2"><span style="right:12.5%">التحضير والاستيراد</span><span style="right:50%">تشغيل متوازٍ ومقارنة</span><span style="right:75%;color:var(--red);font-weight:700">الانتقال النهائي · Cutover</span><span style="right:87.5%">المنظومة الجديدة وحدها</span></div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 05 — TECH & DESIGN
+     =================================================================== -->
+<section class="slide divider photo" id="ch5" data-title="التقنية والتصميم" data-chapter="05 · التقنية والتصميم" data-bare>
+  <div class="num-xl">05</div>
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور الخامس</div>
+    <h2 data-a>التقنية والتصميم</h2>
+    <p data-a>أدوات حديثة ومستقرة، وهوية بصرية هادئة: نادٍ تاريخي بإدارة حديثة — لا قالب جاهز ولا شركة ناشئة عادية.</p>
+    <div class="chips" data-a><span>Next.js</span><span>NestJS</span><span>PostgreSQL</span><span>Cairo</span><span>RTL</span><span>PWA</span><span>2FA</span></div>
+  </div>
+</section>
+
+<section class="slide" data-title="البنية التقنية" data-chapter="05 · التقنية والتصميم">
+  <div class="head-block">
+    <div class="kicker" data-a>System Architecture</div>
+    <h2 class="title" data-a>بنية تقنية <em>حديثة، مستقرة، وقابلة للتوسع</em></h2>
+  </div>
+  <div class="arch">
+    <div class="layer" data-a><div class="ln"><b>الواجهة</b><small>FRONTEND</small></div><div class="items"><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>shadcn/ui</span><span>Lucide Icons</span><span>Framer Motion</span><span>PWA</span></div></div>
+    <div class="layer" data-a><div class="ln"><b>الخادم</b><small>BACKEND</small></div><div class="items"><span>Node.js</span><span>NestJS</span><span>REST API</span><span>Workflow Engine</span><span>Notifications & Jobs</span></div></div>
+    <div class="layer accent" data-a><div class="ln"><b>البيانات</b><small>DATA</small></div><div class="items"><span>PostgreSQL</span><span>Prisma ORM</span><span>Redis Cache</span><span>MinIO / S3 Storage</span></div></div>
+    <div class="layer" data-a><div class="ln"><b>الأمان</b><small>SECURITY</small></div><div class="items"><span>JWT + Refresh Tokens</span><span>2FA</span><span>RBAC</span><span>Audit Log</span><span>HTTPS</span><span>Encrypted Backups</span></div></div>
+    <div class="layer" data-a><div class="ln"><b>التشغيل</b><small>DEPLOYMENT</small></div><div class="items"><span>Internal Server</span><span>Secure Remote Access</span><span>NAS Backup</span><span>Monitoring</span></div></div>
+  </div>
+</section>
+
+<section class="slide" data-title="نظام التصميم" data-chapter="05 · التقنية والتصميم">
+  <div class="head-block">
+    <div class="kicker" data-a>Design System</div>
+    <h2 class="title" data-a>هوية هادئة: <em>الأحمر للتأكيد فقط</em>، والوضوح أولًا</h2>
+  </div>
+  <div class="swatches" data-a>
+    <div class="sw"><div class="c" style="background:#D71920"></div><div><b>Primary Red</b><small>#D71920</small></div></div>
+    <div class="sw"><div class="c" style="background:#8B0F14"></div><div><b>Deep Red</b><small>#8B0F14</small></div></div>
+    <div class="sw"><div class="c" style="background:#0B0B0D"></div><div><b>Dark</b><small>#0B0B0D</small></div></div>
+    <div class="sw"><div class="c" style="background:#161416"></div><div><b>Dark Secondary</b><small>#161416</small></div></div>
+    <div class="sw"><div class="c" style="background:#F5F3F1;border-bottom:1px solid var(--line)"></div><div><b>Background</b><small>#F5F3F1</small></div></div>
+    <div class="sw"><div class="c" style="display:grid;grid-template-columns:repeat(4,1fr)"><i style="background:#15803D"></i><i style="background:#D97706"></i><i style="background:#B91C1C"></i><i style="background:#2563EB"></i></div><div><b>Status</b><small>Success · Warning · Danger · Info</small></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:44px;margin-top:30px">
+    <div data-a>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h3">الخط: Cairo فقط</div><span class="small en">400 · 500 · 600 · 700</span></div>
+      <div class="typescale" style="margin-top:8px">
+        <div><span style="font-size:32px;font-weight:700">عنوان الصفحة</span><small>32 / 700</small></div>
+        <div><span style="font-size:22px;font-weight:700">عنوان القسم</span><small>22 / 700</small></div>
+        <div><span style="font-size:16px;font-weight:600">عنوان البطاقة</span><small>16 / 600</small></div>
+        <div><span style="font-size:14px">نص أساسي للقراءة والجداول</span><small>14 / 400 · 13</small></div>
+        <div><span style="font-size:40px;font-weight:700" class="en">$186,400</span><small>الأرقام المالية 32–44</small></div>
+      </div>
+    </div>
+    <div data-a>
+      <div class="h3" style="margin-bottom:14px">الزوايا والمسافات</div>
+      <div class="radii">
+        <div style="border-radius:8px">8</div><div style="border-radius:12px">12</div><div style="border-radius:16px">16</div><div style="border-radius:24px">24</div>
+      </div>
+      <div class="spacing" style="margin-top:22px;height:70px">
+        <i style="height:4px"></i><i style="height:8px"></i><i style="height:12px"></i><i style="height:16px"></i><i style="height:20px"></i><i style="height:24px"></i><i style="height:32px"></i><i style="height:40px"></i><i style="height:48px"></i><i style="height:64px"></i>
+        <span class="small" style="margin-right:12px">نظام 4px</span>
+      </div>
+      <div class="h3" style="margin:22px 0 10px;font-size:20px">ما نتجنبه</div>
+      <div class="dont"><span>Glassmorphism</span><span>Neon</span><span>Gaming UI</span><span>Crazy Gradients</span><span>Heavy Shadows</span><span>Random 3D</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="تجربة المستخدم" data-chapter="05 · التقنية والتصميم">
+  <div class="head-block">
+    <div class="kicker" data-a>UX Principles</div>
+    <h2 class="title" data-a>سريع للمحاسب، <em>واضح للإدارة</em>، عملي على الهاتف</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:44px">
+    <div data-a>
+      <div class="h3">قاعدة 3–5 خطوات لأي عملية رئيسية</div>
+      <div class="steps35"><span>طلب</span><i>←</i><span>موافقة</span><i>←</i><span>شراء</span><i>←</i><span>استلام</span><i>←</i><span>فاتورة</span><i>←</i><span>دفع</span></div>
+      <div class="small" style="margin-top:20px;font-weight:600">كل مرحلة تعرف:</div>
+      <div class="trail"><span>من أنشأها</span><span>من وافق عليها</span><span>الوقت والتاريخ</span><span>القيمة</span><span>القسم</span><span>المستند</span><span>الحالة</span><span>المرحلة التالية</span><span style="background:var(--red-soft);color:var(--danger);border-color:#F3C9CA">لا حذف بلا أثر</span></div>
+    </div>
+    <div data-a>
+      <div class="h3" style="margin-bottom:14px">اختصارات لوحة المفاتيح — بسرعة برامج سطح المكتب</div>
+      <div class="keys">
+        <div>قيد جديد <kbd>N</kbd></div>
+        <div>حفظ <kbd>Ctrl + S</kbd></div>
+        <div>حفظ واعتماد <kbd>Ctrl + Enter</kbd></div>
+        <div>بحث <kbd>F2</kbd></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><span class="pill dark"><svg class="i"><use href="#monitor"/></svg> Desktop First</span><span class="pill"><svg class="i"><use href="#phone"/></svg> الهاتف: الموافقات، التنبيهات، الملخص المالي</span></div>
+    </div>
+  </div>
+  <div class="states" style="margin-top:34px">
+    <div class="state-demo" data-a><h5>التحميل · Skeleton بدل Spinner</h5><div class="skel" style="width:60%"></div><div class="skel"></div><div class="skel" style="width:85%"></div><div class="skel" style="width:40%"></div></div>
+    <div class="state-demo" data-a><h5>الحالة الفارغة</h5><div class="empty"><svg class="i"><use href="#inbox"/></svg>لا توجد عقود مستحقة هذا الأسبوع.</div></div>
+    <div class="state-demo" data-a><h5>انقطاع الاتصال</h5><div class="offline"><svg class="i"><use href="#wifioff"/></svg><span>الاتصال غير مستقر. سيتم حفظ المسودة محليًا حتى عودة الاتصال. <b>لا يُنفَّذ أي دفع بدون تأكيد الخادم.</b></span></div></div>
+  </div>
+</section>
+
+<section class="slide" data-title="الأمان" data-chapter="05 · التقنية والتصميم">
+  <div class="head-block">
+    <div class="kicker" data-a>Security</div>
+    <h2 class="title" data-a>البيانات المالية محمية <em>بطبقات متعددة</em></h2>
+  </div>
+  <div class="sec-grid">
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#key"/></svg></div><h4>مصادقة ثنائية 2FA</h4><p>إلزامية لحسابات الإدارة والمالية.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#lock"/></svg></div><h4>كلمات مرور قوية وانتهاء الجلسة</h4><p>سياسات إلزامية وخروج تلقائي عند عدم النشاط.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#monitor"/></svg></div><h4>تسجيل الأجهزة وعناوين IP</h4><p>معرفة من دخل، ومن أين، وبأي جهاز.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#users"/></svg></div><h4>صلاحيات حسب الدور</h4><p>عرض، إنشاء، تعديل، حذف، اعتماد، تصدير — لكل دور بدقة.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#history"/></svg></div><h4>سجل تدقيق كامل</h4><p>القيمة القديمة والجديدة لكل تعديل، دون إمكانية الحذف.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#db"/></svg></div><h4>نسخ احتياطي مشفّر</h4><p>مشفّر داخل النادي وخارجه، مع اختبار استرجاع دوري.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#shield"/></svg></div><h4>HTTPS في كل مكان</h4><p>كل الاتصالات مشفّرة داخليًا وعن بُعد.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#banknote"/></svg></div><h4>لا دفع دون تأكيد الخادم</h4><p>العمليات المالية الحساسة تتطلب اتصالًا مؤكدًا.</p></div>
+    <div class="card" data-a><div class="ico"><svg class="i"><use href="#phone"/></svg></div><h4>تطبيق PWA</h4><p>تثبيت على الحاسوب والهاتف، وعمل جزئي دون اتصال لبعض الشاشات.</p></div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CHAPTER 06 — ROADMAP
+     =================================================================== -->
+<section class="slide divider" id="ch6" data-title="خارطة التنفيذ" data-chapter="06 · خارطة التنفيذ" data-bare>
+  <div class="num-xl">06</div>
+  <img class="watermark" src="assets/img/crest-ittihad.png" alt="">
+  <div class="inner">
+    <div class="ch" data-a><span class="stripe"><i></i><i></i><i></i></span> المحور السادس</div>
+    <h2 data-a>خارطة التنفيذ</h2>
+    <p data-a>ثماني مراحل تدريجية: نحمي ما هو موجود أولًا، ثم نبني المالية، ثم نتوسع.</p>
+  </div>
+</section>
+
+<section class="slide dark" data-title="مراحل التنفيذ" data-chapter="06 · خارطة التنفيذ">
+  <div class="head-block">
+    <div class="kicker" data-a>Phased Implementation</div>
+    <h2 class="title" data-a>ثماني مراحل — <em>نبدأ بالإنقاذ ثم المالية</em></h2>
+  </div>
+  <div class="phases" id="phases" data-a></div>
+  <div class="phase-detail" id="phaseDetail" data-a></div>
+</section>
+
+<section class="slide" data-title="قبل وبعد" data-chapter="06 · خارطة التنفيذ">
+  <div class="head-block">
+    <div class="kicker" data-a>The Transformation</div>
+    <h2 class="title" data-a>من بيئة <em>تُعرّض البيانات للخطر</em> — إلى منظومة تحميها وتُفسّرها</h2>
+  </div>
+  <div class="ba">
+    <div class="side before" data-a>
+      <h3>اليوم</h3>
+      <ul><li>أجهزة قديمة</li><li>Windows 7</li><li>برنامج قديم</li><li>Flash Backup</li><li>DSL ضعيف</li><li>Excel</li><li>عمليات يدوية</li><li>بيانات متفرقة</li></ul>
+    </div>
+    <div class="mid" data-a="scale"><div><svg class="i"><use href="#arrowl"/></svg></div></div>
+    <div class="side after" data-a="side">
+      <h3>بعد التنفيذ <img src="assets/img/crest-ittihad.png" alt="" style="width:40px"></h3>
+      <ul><li>شبكة حديثة</li><li>إنترنت موثوق</li><li>سيرفر + NAS</li><li>ERP حديث</li><li>مالية لحظية</li><li>ضبط الموازنة</li><li>متابعة المستثمرين</li><li>رواتب وموارد بشرية</li><li>إدارة رياضية</li><li>موقع ومتجر</li><li>أرشيف رقمي</li><li>تدقيق وتحليلات</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="الخطوة التالية" data-chapter="06 · خارطة التنفيذ">
+  <div class="head-block">
+    <div class="kicker" data-a>Next Step</div>
+    <h2 class="title" data-a>الخطوة التالية: <em>النسخة الأولى من الواجهة</em> — ثم المراجعة</h2>
+    <p class="lead" data-a style="font-size:22px;margin-top:10px">نظام التصميم + هيكل التطبيق + لوحة الإدارة + واجهة المالية، ببيانات تجريبية واقعية. بعد الموافقة على التصميم يبدأ الـBackend وربط PostgreSQL.</p>
+  </div>
+  <div class="scope">
+    <div data-a><div class="ico"><svg class="i"><use href="#login"/></svg></div><b>الدخول</b><small>LOGIN</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#home"/></svg></div><b>لوحة الإدارة</b><small>DASHBOARD</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#wallet"/></svg></div><b>المالية</b><small>FINANCE</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#layers"/></svg></div><b>مراكز التكلفة</b><small>COST CENTERS</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#pie"/></svg></div><b>الموازنة</b><small>BUDGET</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#brief"/></svg></div><b>المستثمرون</b><small>INVESTORS</small></div>
+    <div data-a><div class="ico"><svg class="i"><use href="#pen"/></svg></div><b>العقود</b><small>CONTRACTS</small></div>
+  </div>
+  <div style="margin-top:40px" data-a>
+    <div class="h3" style="margin-bottom:14px">القاعدة الذهبية: لا شاشات عشوائية — قبل برمجة كل وحدة نعرّف</div>
+    <div class="define"><span>User Role</span><span>Goal</span><span>Main Action</span><span>Secondary Actions</span><span>Data Needed</span><span>Validation</span><span>Approval</span><span>Audit Trail</span></div>
+  </div>
+</section>
+
+<section class="slide closing" data-title="الختام" data-chapter="الختام" data-bare>
+  <div class="bg"></div>
+  <div class="in">
+    <img class="crest" src="assets/img/crest-ittihad.png" alt="شعار النادي" data-a="scale">
+    <h2 data-a>نادٍ تاريخي <span>·</span> إدارة حديثة</h2>
+    <p data-a>المنظومة الرقمية لنادي الأهلي · الاتحاد الحلبي — منذ 1949</p>
+    <div class="en" data-a="fade">AL-AHLI SC · ITTIHAD OF ALEPPO</div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ============================ CONTROLS ============================ -->
+<nav class="controls" id="controls" aria-label="التحكم بالعرض">
+  <button id="btnPrev" title="السابق (→)" aria-label="السابق"><svg class="i"><use href="#cr"/></svg></button>
+  <span class="count" id="count">1 / 1</span>
+  <button id="btnNext" title="التالي (←)" aria-label="التالي"><svg class="i"><use href="#cl"/></svg></button>
+  <span class="chap" id="chapLabel"></span>
+  <button id="btnIndex" title="الفهرس (G)" aria-label="الفهرس"><svg class="i"><use href="#grid"/></svg></button>
+  <button id="btnFull" title="ملء الشاشة (F)" aria-label="ملء الشاشة"><svg class="i"><use href="#max"/></svg></button>
+</nav>
+
+<div class="index-panel" id="indexPanel" role="dialog" aria-label="فهرس الشرائح">
+  <div class="ih">
+    <h3><img src="assets/img/crest-ittihad.png" alt=""> فهرس العرض</h3>
+    <button class="btn ghost" id="indexClose">إغلاق <kbd>Esc</kbd></button>
+  </div>
+  <div class="cols" id="indexCols"></div>
+  <div class="help"><span><kbd>←</kbd> <kbd>Space</kbd> التالي</span><span><kbd>→</kbd> السابق</span><span><kbd>Home</kbd> <kbd>End</kbd> البداية والنهاية</span><span><kbd>F</kbd> ملء الشاشة</span><span><kbd>G</kbd> الفهرس</span><span><kbd>P</kbd> طباعة / PDF</span></div>
+</div>
+
+<div class="rotate-hint"><svg class="i"><use href="#rotate"/></svg> للحصول على أفضل تجربة، أدِر الهاتف أفقيًا.</div>
+
+<script src="assets/js/deck.js"></script>
+</body>
+</html>
