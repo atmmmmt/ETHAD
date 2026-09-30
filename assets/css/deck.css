@@ -975,3 +975,6 @@ input[type=range].rng::-moz-range-thumb { width: 22px; height: 22px; border-radi
 .tl-notes .sw { width: 22px; height: 12px; border-radius: 4px; display: inline-block; }
 .tl-notes .sw.red { background: var(--red); } .tl-notes .sw.ink { background: var(--ink); } .tl-notes .sw.green { background: var(--success); }
 .ptable td.n { white-space: nowrap; }
+.cover .cover-by { gap: 22px; padding-right: 22px; }
+.cover .cover-by small { font-size: 17px; letter-spacing: .02em; }
+.cover .cover-by img { height: 62px; width: auto; filter: brightness(0) invert(1); opacity: .95; }
