@@ -98,6 +98,18 @@ export function Payroll() {
   const [y, m] = month.split('-');
   const nextKey = (() => { const n = +m + 1; return n > 12 ? `${+y + 1}-01` : `${y}-${String(n).padStart(2, '0')}`; })();
   const advBal = bal(rollup(ledger(state.entries))['163999'], '163999');
+  const [view, setView] = useState('pay');
+  const [collapsed, setCollapsed] = useState(() => new Set());
+  const toggle = (d) => setCollapsed((c) => { const n = new Set(c); n.has(d) ? n.delete(d) : n.add(d); return n; });
+  const group = (list) => { const g = {}; list.forEach((e) => (g[e.dept || 'بدون قسم'] ||= []).push(e)); return Object.entries(g); };
+  const active = state.employees.filter((e) => e.active);
+  const depts = group(active);
+  const deptsAll = group(state.employees);
+  const sum = (list) => list.reduce((acc, e) => {
+    const l = payLine(e, run.rows[e.id] || {}, state.settings);
+    Object.keys(acc).forEach((k) => (acc[k] += l[k]));
+    return acc;
+  }, { base: 0, allowance: 0, bonus: 0, overtime: 0, late: 0, absence: 0, advance: 0, penalty: 0, net: 0 });
 
   return (
     <div className="page">
@@ -107,7 +119,7 @@ export function Payroll() {
         </select>
         {posted ? <span className="pill green"><Icon n="check" s={14} /> مُرحّلة إلى القيود</span> : <span className="pill amber">مسودة — قابلة للتعديل</span>}
         <span style={{ flex: 1 }} />
-        <button className="btn" onClick={() => setEmp({ id: 'E' + String(state.employees.length + 1).padStart(2, '0'), name: '', dept: '', position: '', base: '', allowance: '', active: true })}><Icon n="plus" /> موظف</button>
+        <button className="btn" onClick={() => setEmp({ id: 'E' + String(state.employees.length + 1).padStart(2, '0'), name: '', dept: depts[0]?.[0] || '', position: '', base: '', allowance: '', active: true })}><Icon n="plus" /> موظف</button>
         {!state.payroll[nextKey] && <button className="btn" onClick={() => { dispatch({ type: 'newPayMonth', month: nextKey }); setMonth(nextKey); }}>فتح شهر {MONTHS[+nextKey.slice(5) - 1]}</button>}
         <button className="btn" onClick={() => downloadCSV('رواتب-' + month, [['الموظف', 'القسم', 'الأساسي', 'بدلات', 'مكافأة', 'إضافي', 'خصم تأخير', 'خصم غياب', 'سلفة', 'عقوبة', 'الصافي'], ...state.employees.filter((e) => e.active).map((e) => { const l = payLine(e, run.rows[e.id] || {}, state.settings); return [e.name, e.dept, l.base, l.allowance, l.bonus, l.overtime, l.late, l.absence, l.advance, l.penalty, l.net]; })])}><Icon n="dl" /> تصدير</button>
         <button className="btn primary" disabled={posted} onClick={() => { dispatch({ type: 'postPayroll', month }); notify('تم ترحيل الرواتب وإنشاء القيد'); }}><Icon n="check" /> اعتماد وترحيل</button>
@@ -121,33 +133,107 @@ export function Payroll() {
         <div className="kpi"><small>رصيد سلف الموظفين</small><b><Money v={advBal} /></b><span className="muted">اقتطاع هذا الشهر <Money v={t.advance} /></span></div>
       </div>
 
-      <div className="tbl-wrap">
-        <table className="tbl">
-          <thead><tr><th>الموظف</th><th>القسم</th><th className="n">الأساسي</th><th className="n">بدلات</th>{PAY_FIELDS.map(([k, n]) => <th key={k} className="n">{n}</th>)}<th className="n">خصم التأخير والغياب</th><th className="n">الصافي</th><th /></tr></thead>
-          <tbody>{state.employees.filter((e) => e.active).map((e) => {
-            const row = run.rows[e.id] || {};
-            const l = payLine(e, row, state.settings);
-            return (
-              <tr key={e.id}>
-                <td><button style={{ fontWeight: 700 }} onClick={() => setEmp(e)}>{e.name}</button><div className="muted" style={{ fontSize: 11 }}>{e.position}</div></td>
-                <td>{e.dept}</td>
-                <td className="n"><Money v={l.base} /></td>
-                <td className="n"><Money v={l.allowance} /></td>
-                {PAY_FIELDS.map(([k]) => (
-                  <td key={k} className="n" style={{ width: 92 }}>
-                    <input className="inp sm n" style={{ width: 76 }} disabled={posted} value={row[k] ?? ''} placeholder="0"
-                      onChange={(ev) => dispatch({ type: 'setPayRow', month, emp: e.id, field: k, value: ev.target.value.replace(/[^\d.]/g, '') })} />
-                  </td>
-                ))}
-                <td className="n neg">{l.late + l.absence ? <Money v={-(l.late + l.absence)} d={2} /> : '—'}</td>
-                <td className="n"><b><Money v={l.net} d={2} /></b></td>
-                <td><button className="btn sm" onClick={() => setSlip(e)}>قسيمة</button></td>
-              </tr>
-            );
-          })}</tbody>
-          <tfoot><tr><td colSpan={2}>المجموع</td><td className="n"><Money v={t.base} /></td><td className="n"><Money v={t.allowance} /></td><td className="n"><Money v={t.bonus} /></td><td className="n"><Money v={t.overtime} /></td><td /><td /><td className="n"><Money v={t.advance} /></td><td className="n"><Money v={t.penalty} /></td><td className="n neg"><Money v={-(t.late + t.absence)} d={2} /></td><td className="n"><Money v={t.net} d={2} /></td><td /></tr></tfoot>
-        </table>
+      <div className="row">
+        <div className="seg">
+          <button className={view === 'pay' ? 'on' : ''} onClick={() => setView('pay')}>مسير الرواتب</button>
+          <button className={view === 'files' ? 'on' : ''} onClick={() => setView('files')}>ملفات الموظفين</button>
+        </div>
+        <div className="seg">
+          <button className={!collapsed.size ? 'on' : ''} onClick={() => setCollapsed(new Set())}>كل الموظفين</button>
+          <button className={collapsed.size === depts.length ? 'on' : ''} onClick={() => setCollapsed(new Set(depts.map((d) => d[0])))}>الأقسام فقط</button>
+        </div>
+        <span className="muted">{depts.length} أقسام · {active.length} موظفًا</span>
       </div>
+
+      {view === 'pay' ? (
+        <div className="tbl-wrap">
+          <table className="tbl coa-tbl">
+            <thead><tr><th>القسم / الموظف</th><th className="n">الأساسي</th><th className="n">بدلات</th>{PAY_FIELDS.map(([k, n]) => <th key={k} className="n">{n}</th>)}<th className="n">خصم التأخير والغياب</th><th className="n">الصافي</th><th /></tr></thead>
+            <tbody>
+              <tr className="coa lv0"><td colSpan={3 + PAY_FIELDS.length + 3}><div className="coa-name"><span className="nm">رواتب {MONTHS[+m - 1]} {y} — كل الأقسام</span></div></td></tr>
+              {depts.map(([d, list], di) => {
+                const st = sum(list);
+                const shut = collapsed.has(d);
+                return (
+                  <React.Fragment key={d}>
+                    <tr className="coa lv1" onClick={() => toggle(d)}>
+                      <td><div className="coa-name"><span className="caret"><Icon n={shut ? 'left' : 'down'} s={14} /></span><span className="code">{String(di + 1).padStart(2, '0')}</span><span className="nm">{d}</span><span className="kids">{list.length}</span></div></td>
+                      <td className="n"><Money v={st.base} /></td><td className="n"><Money v={st.allowance} /></td>
+                      <td className="n"><Money v={st.bonus} /></td><td className="n"><Money v={st.overtime} /></td><td /><td />
+                      <td className="n"><Money v={st.advance} /></td><td className="n"><Money v={st.penalty} /></td>
+                      <td className="n neg">{st.late + st.absence ? <Money v={-(st.late + st.absence)} d={2} /> : '—'}</td>
+                      <td className="n"><b><Money v={st.net} d={2} /></b></td><td />
+                    </tr>
+                    {!shut && list.map((e) => {
+                      const row = run.rows[e.id] || {};
+                      const l = payLine(e, row, state.settings);
+                      return (
+                        <tr key={e.id} className="coa lv4">
+                          <td>
+                            <div className="coa-name" style={{ paddingRight: 26 }}>
+                              <i className="guide" style={{ right: 10 }} /><span className="dotleaf" />
+                              <span className="code">{e.id}</span>
+                              <button className="nm" style={{ fontWeight: 700 }} onClick={() => setEmp(e)}>{e.name}</button>
+                              <span className="muted" style={{ fontSize: 12 }}>{e.position}</span>
+                            </div>
+                          </td>
+                          <td className="n"><Money v={l.base} /></td>
+                          <td className="n"><Money v={l.allowance} /></td>
+                          {PAY_FIELDS.map(([k]) => (
+                            <td key={k} className="n" style={{ width: 88 }}>
+                              <input className="inp sm n" style={{ width: 72 }} disabled={posted} value={row[k] ?? ''} placeholder="0"
+                                onChange={(ev) => dispatch({ type: 'setPayRow', month, emp: e.id, field: k, value: ev.target.value.replace(/[^\d.]/g, '') })} />
+                            </td>
+                          ))}
+                          <td className="n neg">{l.late + l.absence ? <Money v={-(l.late + l.absence)} d={2} /> : '—'}</td>
+                          <td className="n"><b><Money v={l.net} d={2} /></b></td>
+                          <td><button className="btn sm" onClick={() => setSlip(e)}>قسيمة</button></td>
+                        </tr>
+                      );
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+            <tfoot><tr><td>المجموع العام</td><td className="n"><Money v={t.base} /></td><td className="n"><Money v={t.allowance} /></td><td className="n"><Money v={t.bonus} /></td><td className="n"><Money v={t.overtime} /></td><td /><td /><td className="n"><Money v={t.advance} /></td><td className="n"><Money v={t.penalty} /></td><td className="n neg"><Money v={-(t.late + t.absence)} d={2} /></td><td className="n"><Money v={t.net} d={2} /></td><td /></tr></tfoot>
+          </table>
+        </div>
+      ) : (
+        <div className="tbl-wrap">
+          <table className="tbl coa-tbl">
+            <thead><tr><th>القسم / الموظف</th><th>المسمى الوظيفي</th><th className="n">الأساسي</th><th className="n">البدلات</th><th className="n">الإجمالي الشهري</th><th className="n">الكلفة السنوية</th><th>الحالة</th><th /></tr></thead>
+            <tbody>
+              <tr className="coa lv0"><td colSpan={8}><div className="coa-name"><span className="nm">الهيكل الوظيفي — {state.employees.length} موظفًا</span></div></td></tr>
+              {deptsAll.map(([d, list], di) => {
+                const tot = list.filter((e) => e.active).reduce((a, e) => a + (+e.base || 0) + (+e.allowance || 0), 0);
+                const shut = collapsed.has(d);
+                return (
+                  <React.Fragment key={d}>
+                    <tr className="coa lv1" onClick={() => toggle(d)}>
+                      <td><div className="coa-name"><span className="caret"><Icon n={shut ? 'left' : 'down'} s={14} /></span><span className="code">{String(di + 1).padStart(2, '0')}</span><span className="nm">{d}</span><span className="kids">{list.length}</span></div></td>
+                      <td /><td className="n"><Money v={list.filter((e) => e.active).reduce((a, e) => a + (+e.base || 0), 0)} /></td>
+                      <td className="n"><Money v={list.filter((e) => e.active).reduce((a, e) => a + (+e.allowance || 0), 0)} /></td>
+                      <td className="n"><b><Money v={tot} /></b></td><td className="n"><Money v={tot * 12} /></td><td /><td />
+                    </tr>
+                    {!shut && list.map((e) => (
+                      <tr key={e.id} className="coa lv4" style={e.active ? null : { opacity: 0.5 }}>
+                        <td><div className="coa-name" style={{ paddingRight: 26 }}><i className="guide" style={{ right: 10 }} /><span className="dotleaf" /><span className="code">{e.id}</span><span className="nm" style={{ fontWeight: 700 }}>{e.name}</span></div></td>
+                        <td>{e.position}</td>
+                        <td className="n"><Money v={+e.base || 0} /></td>
+                        <td className="n"><Money v={+e.allowance || 0} /></td>
+                        <td className="n"><b><Money v={(+e.base || 0) + (+e.allowance || 0)} /></b></td>
+                        <td className="n"><Money v={((+e.base || 0) + (+e.allowance || 0)) * 12} /></td>
+                        <td>{e.active ? <span className="pill green">على رأس عمله</span> : <span className="pill">متوقف</span>}</td>
+                        <td><button className="btn sm" onClick={() => setEmp(e)}>تعديل</button></td>
+                      </tr>
+                    ))}
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="card">
         <h3>قواعد الاحتساب <small>من الإعدادات</small></h3>
@@ -189,6 +275,7 @@ function PaySlip({ e, month, onClose }) {
 }
 
 function EmployeeModal({ emp, onClose, onSave }) {
+  const { state } = useStore();
   const [f, setF] = useState(emp);
   const set = (k, v) => setF((o) => ({ ...o, [k]: v }));
   const valid = f.name.trim() && +f.base > 0;
@@ -196,7 +283,7 @@ function EmployeeModal({ emp, onClose, onSave }) {
     <Modal size="sm" title={emp.name ? 'تعديل موظف' : 'موظف جديد'} onClose={onClose} footer={<><label className="row" style={{ gap: 6 }}><input type="checkbox" checked={f.active} onChange={(e) => set('active', e.target.checked)} /> على رأس عمله</label><button className="btn primary" disabled={!valid} onClick={() => onSave({ ...f, base: +f.base, allowance: +f.allowance || 0 })}>حفظ</button></>}>
       <div className="field"><label>الاسم *</label><input className="inp" value={f.name} onChange={(e) => set('name', e.target.value)} /></div>
       <div className="grid g2">
-        <div className="field"><label>القسم</label><input className="inp" value={f.dept} onChange={(e) => set('dept', e.target.value)} /></div>
+        <div className="field"><label>القسم</label><input className="inp" list="dept-list" value={f.dept} onChange={(e) => set('dept', e.target.value)} placeholder="اختر أو اكتب قسمًا جديدًا" /><datalist id="dept-list">{[...new Set(state.employees.map((x) => x.dept))].map((d) => <option key={d} value={d} />)}</datalist></div>
         <div className="field"><label>المسمى الوظيفي</label><input className="inp" value={f.position} onChange={(e) => set('position', e.target.value)} /></div>
         <div className="field"><label>الراتب الأساسي ($) *</label><input className="inp n" value={f.base} onChange={(e) => set('base', e.target.value.replace(/[^\d.]/g, ''))} /></div>
         <div className="field"><label>البدلات ($)</label><input className="inp n" value={f.allowance} onChange={(e) => set('allowance', e.target.value.replace(/[^\d.]/g, ''))} /></div>

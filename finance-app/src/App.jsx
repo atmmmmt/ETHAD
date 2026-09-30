@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StoreProvider, Icon } from './store.jsx';
 import { Dashboard, Accounts, Journal } from './pages1.jsx';
 import { Vouchers, Payroll, Budget, Investors, Reports, Settings } from './pages2.jsx';
+import { Guide } from './guide.jsx';
 import crest from './assets/crest-ittihad.png';
 import { TODAY, MONTHS } from './data.js';
 
@@ -10,11 +11,12 @@ const NAV = [
   ['accounts', 'tree', 'دليل الحسابات', Accounts, 'المحاسبة'],
   ['journal', 'book', 'القيود اليومية', Journal],
   ['vouchers', 'receipt', 'سندات القبض والصرف', Vouchers],
-  ['payroll', 'users', 'الرواتب', Payroll, 'الإدارة'],
+  ['payroll', 'users', 'الرواتب والموظفون', Payroll, 'الإدارة'],
   ['budget', 'pie', 'الموازنة ومراكز التكلفة', Budget],
   ['investors', 'brief', 'المستثمرون', Investors],
   ['reports', 'chart', 'التقارير', Reports, 'التقارير'],
   ['settings', 'gear', 'الإعدادات والتدقيق', Settings],
+  ['guide', 'check', 'دليل التجربة', Guide, 'المساعدة'],
 ];
 
 function useRoute() {

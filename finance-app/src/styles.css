@@ -207,3 +207,19 @@ tr.lv4 td { color: #3F3A3F; }
 .lvl-tag.t4 { background: #fff; color: var(--muted); border: 1px solid var(--line); }
 .coa-legend { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; font-size: 12px; color: var(--muted); }
 @media print { .coa-legend, .grid.g4 { display: none; } .tbl-wrap { max-height: none !important; overflow: visible; } }
+
+/* ---------- Testing guide ---------- */
+.guide { display: flex; flex-direction: column; gap: 12px; }
+.g-step { display: grid; grid-template-columns: 54px 1fr; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 20px; transition: border-color .2s, background .2s; }
+.g-step.done { border-color: #BFE3CC; background: #FAFDFB; }
+.g-num { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 700; font-size: 18px; display: grid; place-items: center; }
+.g-step.done .g-num { background: var(--success); }
+.g-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.g-head h4 { font-size: 17px; }
+.g-body ol { padding-right: 20px; line-height: 2; font-size: 14px; }
+.g-ok { margin-top: 10px; background: #E8EFFD; color: #1E3A8A; border-radius: 10px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
+.side a[href="#/guide"] { color: #fff; }
+a.btn { text-decoration: none; }
+.coa-name .nm { white-space: nowrap; }
+.coa-name .muted { white-space: nowrap; }
+.track i.ok { min-width: 6px; }
