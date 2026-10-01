@@ -10,7 +10,9 @@
     "prisma:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "ts-node --transpile-only prisma/seed.ts",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "db:reset": "prisma migrate reset --force --skip-generate && npm run db:seed",
+    "smoke": "node test/smoke.mjs"
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"
