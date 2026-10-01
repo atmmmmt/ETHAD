@@ -1,0 +1,319 @@
+// =============================================================================
+// Al-Ahli SC (Ittihad of Aleppo) — Digital Club System
+// Core data model: identity & audit, general ledger, budgets, investors, payroll,
+// migration batches. All money is Decimal(18,2); rates Decimal(18,6).
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------- identity ---
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  name        String
+  permissions String[]
+  users       User[]
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  fullName     String
+  passwordHash String
+  roleId       Int
+  role         Role      @relation(fields: [roleId], references: [id])
+  totpSecret   String?
+  totpEnabled  Boolean   @default(false)
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+}
+
+/// Append-only. A database trigger rejects UPDATE and DELETE.
+model AuditLog {
+  id        BigInt   @id @default(autoincrement())
+  at        DateTime @default(now())
+  userId    Int?
+  username  String?
+  action    String
+  entity    String
+  entityId  String?
+  before    Json?
+  after     Json?
+  ip        String?
+  userAgent String?
+
+  @@index([entity, entityId])
+  @@index([at])
+}
+
+model Setting {
+  key   String @id
+  value Json
+}
+
+// ---------------------------------------------------------- general ledger ---
+
+enum AccountKind {
+  BS // ميزانية
+  PL // أرباح وخسائر
+  TR // متاجرة
+}
+
+enum Nature {
+  DEBIT
+  CREDIT
+}
+
+model Account {
+  code      String        @id
+  name      String
+  parent    String?
+  level     Int
+  kind      AccountKind
+  nature    Nature
+  isPosting Boolean       @default(true)
+  active    Boolean       @default(true)
+  lines     JournalLine[]
+  budgets   Budget[]
+
+  @@index([parent])
+}
+
+enum CostCenterType {
+  SPORT
+  DEPARTMENT
+  PROJECT
+}
+
+model CostCenter {
+  id      Int            @id @default(autoincrement())
+  code    String         @unique
+  name    String
+  type    CostCenterType
+  active  Boolean        @default(true)
+  lines   JournalLine[]
+  budgets Budget[]
+}
+
+model Currency {
+  code   String         @id
+  name   String
+  symbol String
+  isBase Boolean        @default(false)
+  rates  ExchangeRate[]
+}
+
+model ExchangeRate {
+  id       Int      @id @default(autoincrement())
+  currency String
+  cur      Currency @relation(fields: [currency], references: [code])
+  date     DateTime @db.Date
+  rate     Decimal  @db.Decimal(18, 6) // units of base currency per 1 unit
+
+  @@unique([currency, date])
+}
+
+enum PeriodStatus {
+  OPEN
+  CLOSED
+}
+
+model FiscalPeriod {
+  id       Int          @id @default(autoincrement())
+  year     Int
+  month    Int
+  status   PeriodStatus @default(OPEN)
+  closedAt DateTime?
+  closedBy Int?
+
+  @@unique([year, month])
+}
+
+enum EntryStatus {
+  DRAFT
+  SUBMITTED
+  POSTED
+  REVERSED
+  REJECTED
+}
+
+enum EntrySource {
+  MANUAL
+  RECEIPT
+  PAYMENT
+  PAYROLL
+  INVESTOR
+  OPENING
+  IMPORT
+  REVERSAL
+  CLOSING
+}
+
+model JournalEntry {
+  id           Int           @id @default(autoincrement())
+  number       Int?          @unique
+  date         DateTime      @db.Date
+  description  String
+  reference    String?
+  party        String?
+  source       EntrySource   @default(MANUAL)
+  status       EntryStatus   @default(DRAFT)
+  currency     String
+  rate         Decimal       @default(1) @db.Decimal(18, 6)
+  total        Decimal       @default(0) @db.Decimal(18, 2)
+  createdById  Int
+  createdAt    DateTime      @default(now())
+  submittedAt  DateTime?
+  approvedById Int?
+  postedAt     DateTime?
+  rejectReason String?
+  reversesId   Int?          @unique
+  reverses     JournalEntry? @relation("Reversal", fields: [reversesId], references: [id])
+  reversedBy   JournalEntry? @relation("Reversal")
+  importBatch  Int?
+  lines        JournalLine[]
+
+  @@index([date])
+  @@index([status])
+}
+
+model JournalLine {
+  id           Int          @id @default(autoincrement())
+  entryId      Int
+  entry        JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  lineNo       Int
+  accountCode  String
+  account      Account      @relation(fields: [accountCode], references: [code])
+  costCenterId Int?
+  costCenter   CostCenter?  @relation(fields: [costCenterId], references: [id])
+  debit        Decimal      @default(0) @db.Decimal(18, 2)
+  credit       Decimal      @default(0) @db.Decimal(18, 2)
+  debitBase    Decimal      @default(0) @db.Decimal(18, 2)
+  creditBase   Decimal      @default(0) @db.Decimal(18, 2)
+  memo         String?
+
+  @@index([accountCode])
+  @@index([costCenterId])
+}
+
+// ----------------------------------------------------------------- budgets ---
+
+model Budget {
+  id           Int         @id @default(autoincrement())
+  year         Int
+  accountCode  String?
+  account      Account?    @relation(fields: [accountCode], references: [code])
+  costCenterId Int?
+  costCenter   CostCenter? @relation(fields: [costCenterId], references: [id])
+  amount       Decimal     @db.Decimal(18, 2)
+  note         String?
+
+  @@unique([year, accountCode, costCenterId])
+}
+
+// --------------------------------------------------------------- investors ---
+
+model Investor {
+  id             Int           @id @default(autoincrement())
+  name           String
+  contractNo     String?
+  type           String
+  revenueAccount String
+  receivableAcct String?
+  startDate      DateTime      @db.Date
+  endDate        DateTime?     @db.Date
+  contractValue  Decimal       @db.Decimal(18, 2)
+  currency       String
+  phone          String?
+  notes          String?
+  active         Boolean       @default(true)
+  installments   Installment[]
+}
+
+model Installment {
+  id         Int       @id @default(autoincrement())
+  investorId Int
+  investor   Investor  @relation(fields: [investorId], references: [id], onDelete: Cascade)
+  dueDate    DateTime  @db.Date
+  amount     Decimal   @db.Decimal(18, 2)
+  paidAt     DateTime? @db.Date
+  entryId    Int?
+}
+
+// ----------------------------------------------------------------- payroll ---
+
+model Employee {
+  id         Int           @id @default(autoincrement())
+  code       String        @unique
+  fullName   String
+  department String
+  position   String
+  baseSalary Decimal       @db.Decimal(18, 2)
+  allowance  Decimal       @default(0) @db.Decimal(18, 2)
+  currency   String
+  hireDate   DateTime?     @db.Date
+  phone      String?
+  active     Boolean       @default(true)
+  lines      PayrollLine[]
+}
+
+enum PayrollStatus {
+  DRAFT
+  POSTED
+}
+
+model PayrollRun {
+  id       Int           @id @default(autoincrement())
+  year     Int
+  month    Int
+  status   PayrollStatus @default(DRAFT)
+  entryId  Int?
+  postedAt DateTime?
+  lines    PayrollLine[]
+
+  @@unique([year, month])
+}
+
+model PayrollLine {
+  id         Int        @id @default(autoincrement())
+  runId      Int
+  run        PayrollRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  employeeId Int
+  employee   Employee   @relation(fields: [employeeId], references: [id])
+  bonus      Decimal    @default(0) @db.Decimal(18, 2)
+  overtime   Decimal    @default(0) @db.Decimal(18, 2)
+  lateMin    Int        @default(0)
+  absentDays Decimal    @default(0) @db.Decimal(6, 2)
+  advance    Decimal    @default(0) @db.Decimal(18, 2)
+  penalty    Decimal    @default(0) @db.Decimal(18, 2)
+
+  @@unique([runId, employeeId])
+}
+
+// --------------------------------------------------------------- migration ---
+
+enum ImportStatus {
+  VALIDATED
+  COMMITTED
+  FAILED
+}
+
+model ImportBatch {
+  id        Int          @id @default(autoincrement())
+  kind      String
+  fileName  String
+  status    ImportStatus
+  stats     Json
+  issues    Json
+  createdBy Int
+  createdAt DateTime     @default(now())
+}
