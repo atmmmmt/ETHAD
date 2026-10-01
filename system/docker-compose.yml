@@ -1,0 +1,35 @@
+# Production: copy .env.example to .env, set strong secrets, then: docker compose up -d
+# First run only (roles, admin, chart of accounts, cost centres): docker compose exec app npm run db:seed
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ahli_erp
+      POSTGRES_USER: ahli
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD", "pg_isready", "-U", "ahli"], interval: 5s, retries: 10 }
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on: { db: { condition: service_healthy } }
+    environment:
+      DATABASE_URL: postgresql://ahli:${DB_PASSWORD}@db:5432/ahli_erp
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET (64+ random chars) in .env}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:4000}
+    ports: ["4000:4000"]
+
+  # Nightly compressed backup, kept 30 days.
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    depends_on: [db]
+    environment: { PGPASSWORD: "${DB_PASSWORD}" }
+    volumes: [./backups:/backups]
+    entrypoint: ["sh", "-c", "while true; do pg_dump -h db -U ahli ahli_erp | gzip > /backups/ahli_$$(date +%F).sql.gz; find /backups -mtime +30 -delete; sleep 86400; done"]
+
+volumes:
+  pgdata:
